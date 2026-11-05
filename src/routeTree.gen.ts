@@ -10,33 +10,129 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AtendimentoRouteImport } from './routes/atendimento'
+import { Route as AvaliacaoNeuropsicologicaRouteImport } from './routes/avaliacao-neuropsicologica'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as PerguntasFrequentesRouteImport } from './routes/perguntas-frequentes'
+import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
+import { Route as PsicoterapiaRouteImport } from './routes/psicoterapia'
+import { Route as SobreRouteImport } from './routes/sobre'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AtendimentoRoute = AtendimentoRouteImport.update({
+  id: '/atendimento',
+  path: '/atendimento',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AvaliacaoNeuropsicologicaRoute =
+  AvaliacaoNeuropsicologicaRouteImport.update({
+    id: '/avaliacao-neuropsicologica',
+    path: '/avaliacao-neuropsicologica',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerguntasFrequentesRoute = PerguntasFrequentesRouteImport.update({
+  id: '/perguntas-frequentes',
+  path: '/perguntas-frequentes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
+  id: '/politica-de-privacidade',
+  path: '/politica-de-privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PsicoterapiaRoute = PsicoterapiaRouteImport.update({
+  id: '/psicoterapia',
+  path: '/psicoterapia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/atendimento': typeof AtendimentoRoute
+  '/avaliacao-neuropsicologica': typeof AvaliacaoNeuropsicologicaRoute
+  '/contato': typeof ContatoRoute
+  '/perguntas-frequentes': typeof PerguntasFrequentesRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/psicoterapia': typeof PsicoterapiaRoute
+  '/sobre': typeof SobreRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/atendimento': typeof AtendimentoRoute
+  '/avaliacao-neuropsicologica': typeof AvaliacaoNeuropsicologicaRoute
+  '/contato': typeof ContatoRoute
+  '/perguntas-frequentes': typeof PerguntasFrequentesRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/psicoterapia': typeof PsicoterapiaRoute
+  '/sobre': typeof SobreRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/atendimento': typeof AtendimentoRoute
+  '/avaliacao-neuropsicologica': typeof AvaliacaoNeuropsicologicaRoute
+  '/contato': typeof ContatoRoute
+  '/perguntas-frequentes': typeof PerguntasFrequentesRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/psicoterapia': typeof PsicoterapiaRoute
+  '/sobre': typeof SobreRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/atendimento'
+    | '/avaliacao-neuropsicologica'
+    | '/contato'
+    | '/perguntas-frequentes'
+    | '/politica-de-privacidade'
+    | '/psicoterapia'
+    | '/sobre'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/atendimento'
+    | '/avaliacao-neuropsicologica'
+    | '/contato'
+    | '/perguntas-frequentes'
+    | '/politica-de-privacidade'
+    | '/psicoterapia'
+    | '/sobre'
+  id:
+    | '__root__'
+    | '/'
+    | '/atendimento'
+    | '/avaliacao-neuropsicologica'
+    | '/contato'
+    | '/perguntas-frequentes'
+    | '/politica-de-privacidade'
+    | '/psicoterapia'
+    | '/sobre'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AtendimentoRoute: typeof AtendimentoRoute
+  AvaliacaoNeuropsicologicaRoute: typeof AvaliacaoNeuropsicologicaRoute
+  ContatoRoute: typeof ContatoRoute
+  PerguntasFrequentesRoute: typeof PerguntasFrequentesRoute
+  PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
+  PsicoterapiaRoute: typeof PsicoterapiaRoute
+  SobreRoute: typeof SobreRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +144,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/atendimento': {
+      id: '/atendimento'
+      path: '/atendimento'
+      fullPath: '/atendimento'
+      preLoaderRoute: typeof AtendimentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/avaliacao-neuropsicologica': {
+      id: '/avaliacao-neuropsicologica'
+      path: '/avaliacao-neuropsicologica'
+      fullPath: '/avaliacao-neuropsicologica'
+      preLoaderRoute: typeof AvaliacaoNeuropsicologicaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perguntas-frequentes': {
+      id: '/perguntas-frequentes'
+      path: '/perguntas-frequentes'
+      fullPath: '/perguntas-frequentes'
+      preLoaderRoute: typeof PerguntasFrequentesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/politica-de-privacidade': {
+      id: '/politica-de-privacidade'
+      path: '/politica-de-privacidade'
+      fullPath: '/politica-de-privacidade'
+      preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/psicoterapia': {
+      id: '/psicoterapia'
+      path: '/psicoterapia'
+      fullPath: '/psicoterapia'
+      preLoaderRoute: typeof PsicoterapiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AtendimentoRoute: AtendimentoRoute,
+  AvaliacaoNeuropsicologicaRoute: AvaliacaoNeuropsicologicaRoute,
+  ContatoRoute: ContatoRoute,
+  PerguntasFrequentesRoute: PerguntasFrequentesRoute,
+  PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
+  PsicoterapiaRoute: PsicoterapiaRoute,
+  SobreRoute: SobreRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
