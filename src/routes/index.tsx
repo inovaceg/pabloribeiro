@@ -26,7 +26,7 @@ const jsonLd = {
   areaServed: [{ "@type": "City", name: "Juiz de Fora" }, { "@type": "Country", name: "Brasil" }],
   address: { "@type": "PostalAddress", streetAddress: "Rua Dr. Constantino Paleta, 171 – Sala 201", postalCode: "36015-450", addressLocality: "Juiz de Fora", addressRegion: "MG", addressCountry: "BR" },
   knowsAbout: ["Psicoterapia", "Terapia Cognitivo-Comportamental", "Avaliação Neuropsicológica"],
-  sameAs: [instagramUrl],
+  sameAs: [instagramUrl, site.contact.googleBusinessUrl].filter(Boolean),
 };
 
 export const Route = createFileRoute("/")({

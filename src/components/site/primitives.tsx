@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { BadgeCheck } from "lucide-react";
 
+import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./Reveal";
 
@@ -95,6 +97,10 @@ export function PageHero({
             <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ivory/75">{intro}</p>
           )}
           {children && <div className="mt-10 flex flex-wrap gap-3">{children}</div>}
+          <p className="mt-10 inline-flex items-center gap-2.5 rounded-full border border-ivory/20 px-4 py-2 text-xs tracking-wide text-ivory/80">
+            <BadgeCheck className="size-4 text-sand" aria-hidden />
+            {site.name} · {site.role} · <span className="font-semibold text-ivory">{site.crp}</span>
+          </p>
         </Reveal>
       </div>
     </section>
