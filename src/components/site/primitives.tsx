@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { PencilLine } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Reveal } from "./Reveal";
@@ -90,41 +89,6 @@ export function PageHero({
         </Reveal>
       </div>
     </section>
-  );
-}
-
-/** Marks content still to be supplied by the professional. */
-export function PendingField({
-  label,
-  hint,
-  className,
-  tone = "default",
-}: {
-  label: string;
-  hint?: string;
-  className?: string;
-  tone?: "default" | "inverse";
-}) {
-  return (
-    <div
-      className={cn(
-        "flex items-start gap-3 rounded-md border border-dashed px-4 py-3.5 text-sm",
-        tone === "inverse"
-          ? "border-ivory/25 text-ivory/70"
-          : "border-sand/70 bg-paper/50 text-muted-foreground",
-        className,
-      )}
-    >
-      <PencilLine className="mt-0.5 size-4 shrink-0 text-sand" aria-hidden />
-      <div>
-        <p className={cn("font-medium", tone === "inverse" ? "text-ivory" : "text-navy")}>
-          {label}
-        </p>
-        <p className="mt-0.5 leading-relaxed">
-          {hint ?? "Informação em atualização. Para detalhes, entre em contato."}
-        </p>
-      </div>
-    </div>
   );
 }
 
