@@ -32,17 +32,19 @@ function AboutPage() {
   return (
     <>
       {/* Apresentação */}
-      <section className="relative overflow-hidden pt-28 pb-16 sm:pt-40 lg:pb-28">
+      <section className="relative isolate overflow-hidden bg-navy pt-28 pb-16 text-ivory sm:pt-40 lg:pb-28">
+        <div aria-hidden className="grain-layer absolute inset-0 -z-10" />
+        <div aria-hidden className="pointer-events-none absolute -top-40 right-[-10%] -z-10 size-[34rem] rounded-full bg-sage/20 blur-3xl" />
         <div className="container-site grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <Reveal className="order-2 lg:order-1 lg:col-span-7">
-            <Eyebrow>Sobre o profissional</Eyebrow>
-            <h1 className="mt-6 text-[2.5rem] leading-[1.05] text-navy sm:text-6xl lg:text-7xl">
+            <Eyebrow className="text-sand">Sobre o profissional</Eyebrow>
+            <h1 className="mt-6 text-[2.5rem] leading-[1.05] text-ivory sm:text-6xl lg:text-7xl">
               Conheça <em className="font-light text-sage italic">Pablo Ribeiro</em>
             </h1>
-            <p className="mt-6 text-sm text-muted-foreground">
+            <p className="mt-6 text-sm text-ivory/75">
               {site.role} <span className="mx-1.5 text-sand">|</span> {site.crp}
             </p>
-            <div className="mt-8 max-w-xl space-y-4 text-lg leading-relaxed text-muted-foreground">
+            <div className="mt-8 max-w-xl space-y-4 text-lg leading-relaxed text-ivory/75">
               {hasText(site.about.bio) ? (
                 site.about.bio.map((p) => <p key={p}>{p}</p>)
               ) : (
@@ -59,11 +61,11 @@ function AboutPage() {
               )}
             </div>
             <div className="mt-10">
-              <BookingButton message={BOOKING_MESSAGES.agendamento}>Agendar atendimento</BookingButton>
+              <BookingButton variant="whatsapp" message={BOOKING_MESSAGES.agendamento}>Agendar atendimento</BookingButton>
             </div>
           </Reveal>
           <Reveal delay={150} className="order-1 mx-auto w-full max-w-xs sm:max-w-sm lg:order-2 lg:col-span-5 lg:max-w-none">
-            <div className="overflow-hidden rounded-xl bg-sand-soft shadow-soft">
+            <div className="overflow-hidden rounded-t-[12rem] rounded-b-xl bg-sand-soft shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)] ring-1 ring-sand/40">
               <img
                 src={retratoEstudio.url}
                 alt="Retrato profissional de Pablo Ribeiro, psicólogo"
@@ -78,15 +80,14 @@ function AboutPage() {
       </section>
 
       {/* Abordagem e filosofia */}
-      <section className="bg-navy py-20 text-ivory sm:py-28">
+      <section className="py-20 sm:py-28">
         <div className="container-site grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
             <SectionHeading
-              tone="inverse"
               eyebrow="Abordagem de trabalho"
               title="Cuidado ético, escuta e construção conjunta."
             />
-            <Reveal delay={100} className="mt-8 space-y-5 leading-relaxed text-ivory/75">
+            <Reveal delay={100} className="mt-8 space-y-5 leading-relaxed text-muted-foreground">
               <p>
                 Cada pessoa carrega uma história única. Por isso, o acompanhamento é construído de
                 forma individualizada, respeitando o tempo, os valores e os objetivos de quem busca
@@ -97,9 +98,9 @@ function AboutPage() {
                 em uma relação de confiança — base de qualquer processo terapêutico.
               </p>
             </Reveal>
-            <Reveal delay={180} className="mt-10 border-t border-ivory/15 pt-8">
-              <h3 className="text-2xl text-ivory">Terapia Cognitivo-Comportamental</h3>
-              <p className="mt-3 leading-relaxed text-ivory/70">
+            <Reveal delay={180} className="mt-10 border-t border-navy/15 pt-8">
+              <h3 className="text-2xl text-navy">Terapia Cognitivo-Comportamental</h3>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
                 Uma abordagem colaborativa e estruturada, que compreende a relação entre
                 pensamentos, emoções e comportamentos e busca desenvolver recursos práticos para o
                 dia a dia.
@@ -107,7 +108,7 @@ function AboutPage() {
             </Reveal>
           </div>
           <Reveal delay={120} className="lg:col-span-6">
-            <div className="overflow-hidden rounded-xl">
+            <div className="overflow-hidden rounded-2xl shadow-soft">
               <img
                 src={retratoConsultorio.url}
                 alt="Pablo Ribeiro em seu consultório"

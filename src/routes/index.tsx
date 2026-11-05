@@ -369,8 +369,7 @@ function HowToStart() {
     <section className="border-y border-border/70 bg-sand-soft/50 py-20 sm:py-28">
       <div className="container-site">
         <SectionHeading align="center" eyebrow="Como começar" title="O primeiro passo pode ser simples." />
-        <ol className="relative mt-16 grid gap-10 md:grid-cols-3 md:gap-8">
-          <div aria-hidden className="absolute top-7 right-[16%] left-[16%] hidden h-px bg-sand/60 md:block" />
+        <ol className="relative mt-16 grid gap-10 md:grid-cols-3 md:gap-8 md:before:absolute md:before:top-7 md:before:right-[16%] md:before:left-[16%] md:before:h-px md:before:bg-sand/60 md:before:content-['']">
           {steps.map(([t, d], i) => (
             <Reveal as="li" key={t} delay={i * 120} className="relative text-center">
               <span className="relative mx-auto flex size-14 items-center justify-center rounded-full bg-navy font-display text-xl text-ivory italic ring-8 ring-sand-soft">
