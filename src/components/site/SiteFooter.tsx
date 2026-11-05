@@ -4,6 +4,7 @@ import { MapPin, Mail } from "lucide-react";
 import { site, instagramUrl, hasText } from "@/config/site";
 import { buildWhatsAppUrl } from "@/lib/contact";
 import { Logo } from "./SiteHeader";
+import { BookingButton } from "./booking";
 import { InstagramIcon, WhatsAppIcon } from "./icons";
 import { NAV_ITEMS } from "./nav";
 
@@ -23,6 +24,9 @@ export function SiteFooter() {
           <p className="mt-6 text-sm text-ivory/80">
             {site.name} · {site.role} · <span className="text-sand">{site.crp}</span>
           </p>
+          <BookingButton variant="whatsapp" className="mt-8">
+            Agendar pelo WhatsApp
+          </BookingButton>
         </div>
 
         <nav aria-label="Rodapé" className="md:col-span-3">
@@ -74,7 +78,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-ivory/10">
-        <div className="container-site flex flex-col gap-4 py-7 text-xs text-ivory/55 md:flex-row md:items-center md:justify-between">
+        <div className="container-site flex flex-col gap-4 py-7 pb-28 text-xs text-ivory/55 md:flex-row md:items-center md:justify-between md:pb-7 lg:pr-72">
           <p>
             © {year} {site.name} · {site.crp}. Todos os direitos reservados.
           </p>
