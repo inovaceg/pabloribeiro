@@ -89,7 +89,7 @@ function CarePage() {
           </Reveal>
           <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: Lock, t: "Privacidade", d: "Sessões com sigilo profissional, em plataforma segura, sem gravação." },
+              { icon: Lock, t: "Privacidade", d: "Sessões protegidas pelo sigilo profissional, realizadas em plataforma segura." },
               { icon: Headphones, t: "Ambiente adequado", d: "Escolha um local reservado e silencioso. Fones de ouvido ajudam a garantir a privacidade." },
               { icon: Wifi, t: "Conexão", d: "Uma internet estável e um dispositivo com câmera e microfone são suficientes." },
               { icon: CalendarCheck, t: "Agendamento", d: "Os horários são combinados previamente, e o link da sessão é enviado antes do encontro." },
