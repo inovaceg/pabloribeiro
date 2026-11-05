@@ -70,15 +70,15 @@ export function FloatingBooking() {
       rel="noopener noreferrer"
       aria-label={isWa ? "Agendar pelo WhatsApp" : "Agendar pelo Direct do Instagram"}
       className={cn(
-        "group fixed right-4 bottom-4 z-[45] inline-flex items-center gap-3 rounded-full py-2 pr-5 pl-2 text-sm font-medium shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)] ring-1 ring-paper/30 transition-all duration-500 ease-elegant hover:-translate-y-1 sm:right-6 sm:bottom-6",
+        "group fixed right-4 bottom-4 z-[45] inline-flex items-center gap-3 rounded-full p-2 text-sm sm:pr-5 font-medium shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)] ring-1 ring-paper/30 transition-all duration-500 ease-elegant hover:-translate-y-1 sm:right-6 sm:bottom-6",
         isWa ? "bg-whatsapp text-whatsapp-foreground" : "bg-primary text-primary-foreground",
       )}
     >
-      <span className="relative flex size-10 items-center justify-center rounded-full bg-paper/15">
+      <span className="relative flex size-11 items-center justify-center rounded-full bg-paper/15 sm:size-10">
         <span aria-hidden className="absolute inset-0 rounded-full bg-paper/40 animate-soft-pulse" />
-        {isWa ? <WhatsAppIcon className="relative size-5" /> : <MessageCircle className="relative size-5" />}
+        {isWa ? <WhatsAppIcon className="relative size-6 sm:size-5" /> : <MessageCircle className="relative size-6 sm:size-5" />}
       </span>
-      <span className="flex flex-col leading-tight">
+      <span className="hidden flex-col leading-tight sm:flex">
         <span className="text-[0.65rem] font-normal tracking-[0.14em] uppercase opacity-80">
           {isWa ? "WhatsApp" : "Instagram"}
         </span>

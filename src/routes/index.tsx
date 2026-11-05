@@ -104,7 +104,7 @@ function Hero() {
               </BookingButton>
               <Link
                 to="/sobre"
-                className="self-center border-b-2 border-sage pb-1 font-semibold text-sage transition-colors hover:border-navy hover:text-navy sm:self-auto"
+                className="self-center border-b-2 border-sage pb-1 font-semibold text-navy/85 transition-colors hover:border-navy hover:text-navy sm:self-auto"
               >
                 Conheça meu trabalho
               </Link>
@@ -170,7 +170,7 @@ function HowICanHelp() {
             <Reveal key={c.title} delay={i * 120}>
               <Link
                 to={c.to}
-                className="group flex h-full gap-5 rounded-2xl border border-border bg-paper/60 p-6 transition-all duration-500 ease-elegant hover:-translate-y-1 hover:border-sage/60 hover:bg-paper hover:shadow-soft sm:p-7"
+                className="group flex h-full flex-col gap-5 rounded-2xl border border-border bg-paper/60 p-6 transition-all duration-500 ease-elegant hover:-translate-y-1 hover:border-sage/60 hover:bg-paper hover:shadow-soft sm:flex-row sm:p-7"
               >
                 <span className="flex size-14 shrink-0 items-center justify-center rounded-xl border border-sage/30 bg-sage-soft text-navy sm:size-16">
                   <c.icon className="size-7" strokeWidth={1.3} aria-hidden />
