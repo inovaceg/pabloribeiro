@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "@tanstack/react-router";
 import { CheckCircle2, Loader2 } from "lucide-react";
@@ -32,7 +32,7 @@ function ChoiceGroup<T extends string>({
   legend: string;
   name: "subject" | "modality";
   options: { value: T; label: string }[];
-  register: ReturnType<typeof useForm<ContactInput>>["register"];
+  register: UseFormRegister<ContactInput>;
   error?: string;
 }) {
   return (
