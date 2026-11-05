@@ -67,8 +67,6 @@ export function ContactForm() {
       name: "",
       phone: "",
       email: "",
-      subject: undefined,
-      modality: undefined,
       message: "",
       consent: false,
     },
