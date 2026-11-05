@@ -1,36 +1,41 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
+import { CalendarCheck, Menu } from "lucide-react";
 
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { site, instagramUrl } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { BookingButton } from "./booking";
+import { BookingButton, useBookingChannel } from "./booking";
 import { InstagramIcon } from "./icons";
 import { NAV_ITEMS } from "./nav";
 
-export function Logo({ tone = "default" }: { tone?: "default" | "inverse" }) {
+/** Brand lockup: PR monogram + name + role/CRP. Designed for dark backgrounds. */
+export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <Link to="/" className="group inline-flex flex-col leading-none" aria-label="Pablo Ribeiro — Início">
-      <span
-        className={cn(
-          "text-[0.9rem] font-semibold tracking-[0.32em] transition-colors duration-500 sm:text-[0.95rem]",
-          tone === "inverse" ? "text-ivory" : "text-navy",
-        )}
-      >
-        PABLO RIBEIRO
+    <Link to="/" className="group inline-flex items-center gap-3 sm:gap-4" aria-label="Pablo Ribeiro — Início">
+      <span aria-hidden className="font-display text-[2.1rem] leading-none font-normal tracking-[-0.14em] text-sand sm:text-[2.4rem]">
+        PR
       </span>
-      <span className="mt-1.5 font-display text-[0.95rem] text-sand italic">{site.role}</span>
+      <span aria-hidden className="h-9 w-px bg-sand/60 sm:h-10" />
+      <span className="flex flex-col leading-none">
+        <span className="font-display text-[1.05rem] font-medium tracking-[0.06em] text-sand sm:text-[1.3rem]">
+          PABLO RIBEIRO
+        </span>
+        {!compact && (
+          <span className="mt-1.5 text-[0.58rem] font-semibold tracking-[0.16em] text-ivory/85 sm:text-[0.62rem]">
+            PSICÓLOGO • {site.crp}
+          </span>
+        )}
+      </span>
     </Link>
   );
 }
 
-/** Every page opens on a dark hero, so the header is light-on-dark until the user scrolls. */
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const onDark = !scrolled;
+  const channel = useBookingChannel();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -44,28 +49,21 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-elegant",
-        scrolled
-          ? "border-b border-border/70 bg-ivory/90 py-3 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.25)] backdrop-blur-md"
-          : "border-b border-ivory/10 py-5 sm:py-6",
+        "fixed inset-x-0 top-0 z-50 flex h-[76px] items-center bg-navy transition-shadow duration-500 sm:h-20",
+        scrolled && "shadow-[0_12px_30px_-18px_rgba(0,0,0,0.6)]",
       )}
     >
       <div className="container-site flex items-center justify-between gap-6">
-        <Logo tone={onDark ? "inverse" : "default"} />
+        <Logo />
 
         <nav aria-label="Navegação principal" className="hidden xl:block">
           <ul className="flex items-center gap-7">
-            {NAV_ITEMS.map((item) => (
+            {NAV_ITEMS.filter((i) => i.to !== "/atendimento").map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
                   activeOptions={{ exact: item.to === "/" }}
-                  className={cn(
-                    "relative py-2 text-[0.84rem] transition-colors after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-sand after:transition-transform after:duration-500 hover:after:scale-x-100 data-[status=active]:after:scale-x-100",
-                    onDark
-                      ? "text-ivory/70 hover:text-ivory data-[status=active]:text-ivory"
-                      : "text-navy/70 hover:text-navy data-[status=active]:text-navy",
-                  )}
+                  className="relative py-2 text-[0.88rem] text-ivory/85 transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-full after:bg-sand after:transition-transform after:duration-500 hover:text-ivory hover:after:scale-x-100 data-[status=active]:font-semibold data-[status=active]:text-ivory data-[status=active]:after:scale-x-100"
                 >
                   {item.label}
                 </Link>
@@ -75,21 +73,20 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <BookingButton
-            variant="whatsapp"
-            className="hidden px-5 py-3 text-xs tracking-[0.12em] uppercase sm:inline-flex"
+          <a
+            href={channel.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Agendar pelo WhatsApp"
+            className="hidden items-center gap-2.5 rounded-xl border border-ivory/80 px-5 py-2.5 text-sm font-semibold tracking-[0.08em] text-ivory transition-colors duration-500 hover:bg-ivory hover:text-navy sm:inline-flex"
           >
-            Agendar consulta
-          </BookingButton>
+            <CalendarCheck className="size-4" strokeWidth={1.6} />
+            AGENDAR
+          </a>
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
-              className={cn(
-                "inline-flex size-11 items-center justify-center rounded-full border transition-colors xl:hidden",
-                onDark
-                  ? "border-ivory/25 text-ivory hover:bg-ivory/10"
-                  : "border-navy/15 text-navy hover:bg-navy/5",
-              )}
+              className="inline-flex size-11 items-center justify-center rounded-xl border border-ivory/25 text-ivory transition-colors hover:bg-ivory/10 xl:hidden"
               aria-label="Abrir menu"
             >
               <Menu className="size-5" />
@@ -99,8 +96,8 @@ export function SiteHeader() {
               className="flex w-full flex-col border-l-0 bg-navy p-0 text-ivory sm:max-w-md [&>button]:top-7 [&>button]:right-6 [&>button]:rounded-full [&>button]:p-2 [&>button]:text-ivory [&>button]:opacity-80 [&>button]:data-[state=open]:bg-transparent"
             >
               <SheetTitle className="sr-only">Menu</SheetTitle>
-              <div className="px-8 pt-7">
-                <Logo tone="inverse" />
+              <div className="px-8 pt-6">
+                <Logo />
               </div>
               <nav aria-label="Menu móvel" className="mt-10 flex-1 overflow-y-auto px-8">
                 <ul>
