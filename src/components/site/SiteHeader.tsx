@@ -101,7 +101,7 @@ export function SiteHeader() {
               </div>
               <nav aria-label="Menu móvel" className="mt-10 flex-1 overflow-y-auto px-8">
                 <ul>
-                  {[...NAV_ITEMS, { to: "/perguntas-frequentes" as const, label: "Perguntas frequentes" }].map(
+                  {NAV_ITEMS.map(
                     (item, i) => (
                       <li key={item.to}>
                         <Link
