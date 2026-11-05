@@ -13,7 +13,7 @@ import { buttonClass } from "./booking";
 const fieldClass =
   "w-full rounded-md border border-input bg-paper px-4 py-3.5 text-[0.95rem] text-navy placeholder:text-muted-foreground/70 transition-colors focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/30 aria-[invalid=true]:border-destructive";
 
-function FieldError({ message, id }: { message?: string; id: string }) {
+function FieldError({ message, id }: { message?: string | undefined; id: string }) {
   if (!message) return null;
   return (
     <p id={id} role="alert" className="mt-1.5 text-sm text-destructive">
@@ -33,7 +33,7 @@ function ChoiceGroup<T extends string>({
   name: "subject" | "modality";
   options: { value: T; label: string }[];
   register: UseFormRegister<ContactInput>;
-  error?: string;
+  error?: string | undefined;
 }) {
   return (
     <fieldset>
