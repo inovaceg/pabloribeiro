@@ -22,7 +22,7 @@ const jsonLd = {
   description:
     "Psicoterapia, Terapia Cognitivo-Comportamental e Avaliação Neuropsicológica. Atendimento presencial em Juiz de Fora – MG e online.",
   areaServed: [{ "@type": "City", name: "Juiz de Fora" }, { "@type": "Country", name: "Brasil" }],
-  address: { "@type": "PostalAddress", addressLocality: "Juiz de Fora", addressRegion: "MG", addressCountry: "BR" },
+  address: { "@type": "PostalAddress", streetAddress: "Rua Dr. Constantino Paleta, 171 – Sala 201", postalCode: "36015-450", addressLocality: "Juiz de Fora", addressRegion: "MG", addressCountry: "BR" },
   knowsAbout: ["Psicoterapia", "Terapia Cognitivo-Comportamental", "Avaliação Neuropsicológica"],
   sameAs: [instagramUrl],
 };
