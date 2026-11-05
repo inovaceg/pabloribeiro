@@ -31,7 +31,7 @@ use the editor.
 
 ## Project rules
 
-- All editable professional info (contacts, address, bio, session details) lives in `src/config/site.ts`; empty fields render as `PendingField` placeholders. Why: the owner updates content without touching pages, and nothing unconfirmed is ever invented.
-- Scheduling links go through `getBookingChannel` in `src/lib/contact.ts` (WhatsApp when configured, Instagram Direct fallback). Why: one place controls every booking button.
+- All editable professional info (contacts, address, bio, session details) lives in `src/config/site.ts`; empty fields are hidden from the public site (no placeholder notices). Why: the owner updates content without touching pages, and nothing unconfirmed is ever shown or invented.
+- Scheduling links go through `getBookingChannel` in `src/lib/contact.ts` (WhatsApp when configured, Instagram Direct fallback) with page-specific `BOOKING_MESSAGES`. Why: one place controls every booking button.
 - The contact form stores no data: it builds the message client-side and hands it to WhatsApp/Instagram. Why: institutional site, no patient data storage (LGPD / ethics).
 - Per-route SEO uses `pageHead()` from `src/lib/seo.ts`. Why: consistent title/description/OG/canonical on every page.

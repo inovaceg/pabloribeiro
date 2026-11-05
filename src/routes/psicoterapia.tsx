@@ -2,18 +2,21 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
 import { site } from "@/config/site";
+import { BOOKING_MESSAGES } from "@/lib/contact";
 import { pageHead } from "@/lib/seo";
 import { BookingButton, buttonClass } from "@/components/site/booking";
 import { Reveal } from "@/components/site/Reveal";
 import { NumberedItem, PageHero, SectionHeading } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/sections";
 
+const MSG = BOOKING_MESSAGES.psicoterapia;
+
 export const Route = createFileRoute("/psicoterapia")({
   head: () =>
     pageHead({
-      title: "Terapia Cognitivo-Comportamental em Juiz de Fora | Pablo Ribeiro, Psicólogo",
+      title: "Psicoterapia e Terapia Cognitivo-Comportamental em Juiz de Fora | Pablo Ribeiro",
       description:
-        "Psicoterapia em Terapia Cognitivo-Comportamental (TCC) com Pablo Ribeiro, psicólogo em Juiz de Fora – MG. Atendimento presencial e online.",
+        "Psicoterapia em Terapia Cognitivo-Comportamental (TCC) com Pablo Ribeiro, psicólogo em Juiz de Fora – MG. Entenda como funciona o acompanhamento, presencial e online.",
       path: "/psicoterapia",
     }),
   component: TherapyPage,
@@ -34,7 +37,7 @@ function Triad() {
       {nodes.map((n) => (
         <span
           key={n.label}
-          className={`absolute rounded-full border border-navy/15 bg-paper px-4 py-2.5 font-display text-base text-navy shadow-soft sm:text-lg ${n.cls}`}
+          className={`absolute rounded-full border border-navy/15 bg-paper px-3.5 py-2 font-display text-sm text-navy shadow-soft sm:px-4 sm:py-2.5 sm:text-lg ${n.cls}`}
         >
           {n.label}
         </span>
@@ -55,35 +58,47 @@ function TherapyPage() {
         }
         intro="A psicoterapia é um processo de cuidado que acontece no encontro entre paciente e psicólogo, com escuta qualificada, ética e respeito à singularidade de cada pessoa."
       >
-        <BookingButton>Agendar atendimento</BookingButton>
+        <BookingButton message={MSG}>Agendar atendimento</BookingButton>
       </PageHero>
 
+      {/* O que é psicoterapia */}
       <section className="py-20 sm:py-28">
-        <div className="container-site grid gap-14 lg:grid-cols-12">
-          <SectionHeading className="lg:col-span-5" eyebrow="O que é" title="Terapia Cognitivo-Comportamental" />
+        <div className="container-site grid gap-10 lg:grid-cols-12 lg:gap-14">
+          <SectionHeading className="lg:col-span-5" eyebrow="O que é" title="Psicoterapia" />
           <Reveal delay={100} className="space-y-5 text-lg leading-relaxed text-muted-foreground lg:col-span-7">
             <p>
-              A Terapia Cognitivo-Comportamental (TCC) é uma abordagem da Psicologia que parte de uma
-              ideia central: a forma como interpretamos as situações influencia o que sentimos e como
-              agimos.
+              Psicoterapia é um acompanhamento psicológico em que você encontra um espaço seguro e
+              sigiloso para falar sobre o que sente, pensa e vive — e para compreender melhor a si
+              mesmo.
             </p>
             <p>
-              Na TCC, paciente e terapeuta trabalham juntos para identificar padrões de pensamento e
-              comportamento que geram sofrimento, compreender sua origem e construir, passo a passo,
-              formas mais flexíveis e funcionais de lidar com as experiências.
+              Ao longo dos encontros, construímos juntos novas formas de olhar para as situações e de
+              lidar com os desafios, respeitando o seu tempo e a sua história.
             </p>
           </Reveal>
         </div>
       </section>
 
+      {/* TCC */}
       <section className="bg-paper py-20 sm:py-28">
-        <div className="container-site grid items-center gap-16 lg:grid-cols-2">
+        <div className="container-site grid items-center gap-14 lg:grid-cols-2 lg:gap-16">
           <div>
             <SectionHeading
-              eyebrow="Pensamentos, emoções e comportamentos"
-              title="Três dimensões que se influenciam mutuamente."
-              intro="Um pensamento pode despertar uma emoção, que leva a um comportamento — que, por sua vez, reforça o pensamento inicial. Compreender esse ciclo é um dos pontos de partida do trabalho em TCC."
+              eyebrow="Terapia Cognitivo-Comportamental"
+              title="Pensamentos, emoções e comportamentos se influenciam."
             />
+            <Reveal delay={100} className="mt-6 space-y-4 leading-relaxed text-muted-foreground">
+              <p>
+                A TCC parte de uma ideia central: a forma como interpretamos as situações influencia o
+                que sentimos e como agimos.
+              </p>
+              <p>
+                Em conjunto, paciente e psicólogo identificam padrões que geram sofrimento e
+                desenvolvem, passo a passo, maneiras mais flexíveis de lidar com as experiências. É
+                uma abordagem colaborativa, estruturada e com objetivos definidos ao longo do
+                processo.
+              </p>
+            </Reveal>
           </div>
           <Reveal delay={150}>
             <Triad />
@@ -91,50 +106,63 @@ function TherapyPage() {
         </div>
       </section>
 
+      {/* Para quem */}
       <section className="py-20 sm:py-28">
-        <div className="container-site">
-          <SectionHeading eyebrow="Como funciona" title="O acompanhamento, passo a passo." />
-          <div className="mt-14 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              ["Acolhimento", "Os primeiros encontros são dedicados a compreender sua história, sua demanda e o que você espera do processo."],
-              ["Objetivos", "Juntos, definimos focos de trabalho e metas possíveis, revisitadas ao longo do caminho."],
-              ["Sessões", "Encontros estruturados, com espaço para fala livre, reflexão e desenvolvimento de estratégias para o dia a dia."],
-              ["Revisão", "O processo é acompanhado continuamente, ajustando o planejamento conforme as necessidades."],
-            ].map(([t, d], i) => (
-              <Reveal key={t} delay={i * 100}>
-                <NumberedItem index={i + 1} title={t}>{d}</NumberedItem>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-navy py-20 text-ivory sm:py-28">
-        <div className="container-site grid gap-14 lg:grid-cols-12">
+        <div className="container-site grid gap-10 lg:grid-cols-12 lg:gap-14">
           <SectionHeading
-            tone="inverse"
             className="lg:col-span-5"
-            eyebrow="O processo terapêutico"
-            title="Cada processo tem seu próprio ritmo."
+            eyebrow="Para quem é indicado"
+            title="Para pessoas de todas as idades."
+            intro="Não é preciso estar em crise para buscar psicoterapia. Ela pode ajudar quem deseja:"
           />
-          <Reveal delay={100} className="space-y-5 leading-relaxed text-ivory/75 lg:col-span-7">
-            <p>
-              A psicoterapia é construída de forma conjunta e contínua. A regularidade das sessões, o
-              vínculo de confiança e o envolvimento de cada pessoa fazem parte do processo.
-            </p>
-            <p>
-              Não existem fórmulas prontas nem resultados garantidos: o que se busca é oferecer um
-              espaço seguro para compreender as próprias experiências e desenvolver novos recursos,
-              no tempo de cada um.
-            </p>
-            <p className="text-sm text-ivory/55">
-              Todas as informações compartilhadas em sessão são protegidas pelo sigilo profissional,
-              conforme o Código de Ética Profissional do Psicólogo.
-            </p>
+          <Reveal delay={100} className="lg:col-span-7">
+            <ul className="divide-y divide-navy/10 border-y border-navy/10">
+              {[
+                "Compreender melhor emoções, pensamentos e reações",
+                "Lidar com ansiedade, estresse ou momentos de sofrimento",
+                "Atravessar mudanças, perdas ou novos ciclos da vida",
+                "Refletir sobre relações pessoais, familiares ou profissionais",
+                "Investir em autoconhecimento e bem-estar emocional",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-4 py-4 text-navy">
+                  <span aria-hidden className="mt-3 h-px w-5 shrink-0 bg-sand" />
+                  <span className="leading-relaxed">{t}</span>
+                </li>
+              ))}
+            </ul>
           </Reveal>
         </div>
       </section>
 
+      {/* Primeira consulta e acompanhamento */}
+      <section className="bg-navy py-20 text-ivory sm:py-28">
+        <div className="container-site">
+          <SectionHeading
+            tone="inverse"
+            eyebrow="Como acontece"
+            title="Da primeira consulta ao acompanhamento."
+          />
+          <div className="mt-14 grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["Primeira consulta", "Um momento de acolhimento para conversar sobre o que motivou a busca, suas expectativas e tirar dúvidas sobre o processo."],
+              ["Objetivos", "Juntos, definimos focos de trabalho possíveis, revisitados ao longo do caminho."],
+              ["Sessões", "Encontros regulares, com espaço para fala livre, reflexão e desenvolvimento de estratégias para o dia a dia."],
+              ["Revisão contínua", "O processo é acompanhado de perto e ajustado conforme as suas necessidades."],
+            ].map(([t, d], i) => (
+              <Reveal key={t} delay={i * 100}>
+                <NumberedItem tone="inverse" index={i + 1} title={t}>{d}</NumberedItem>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-14 max-w-2xl text-sm leading-relaxed text-ivory/60">
+            Cada processo tem seu próprio ritmo e não há resultados garantidos: o que se oferece é um
+            espaço seguro e ético para compreender as próprias experiências. Tudo o que é
+            compartilhado em sessão é protegido pelo sigilo profissional.
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Modalidades */}
       <section className="py-20 sm:py-28">
         <div className="container-site">
           <SectionHeading eyebrow="Modalidades" title="Presencial ou online." />
@@ -150,7 +178,7 @@ function TherapyPage() {
             ))}
           </div>
           <Reveal className="mt-10 flex flex-col gap-3 sm:flex-row">
-            <BookingButton>Agendar atendimento</BookingButton>
+            <BookingButton message={MSG}>Agendar atendimento</BookingButton>
             <Link to="/atendimento" className={buttonClass("outline")}>
               Detalhes do atendimento <ArrowRight className="size-4" />
             </Link>
@@ -158,7 +186,7 @@ function TherapyPage() {
         </div>
       </section>
 
-      <CtaBand />
+      <CtaBand message={MSG} />
     </>
   );
 }

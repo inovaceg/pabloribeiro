@@ -145,6 +145,7 @@ function NeuroPage() {
       <CtaBand
         title="Ficou com dúvidas sobre a avaliação neuropsicológica?"
         text="Entre em contato para entender se a avaliação é indicada para você ou para quem você acompanha, e como funciona o processo."
+        message={BOOKING_MESSAGES.avaliacao}
       />
     </>
   );

@@ -13,7 +13,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Como posso agendar?",
-    a: "O agendamento é feito diretamente comigo, pelos botões “Agendar” disponíveis em todas as páginas do site ou pelo formulário de contato. Retorno o mais breve possível com as opções de dia e horário disponíveis.",
+    a: "O agendamento é feito diretamente comigo pelo WhatsApp — pelos botões “Agendar” disponíveis em todas as páginas ou pelo formulário de contato. Retorno o mais breve possível com as opções de dia e horário.",
   },
   {
     q: "O atendimento pode ser realizado online?",
@@ -33,7 +33,7 @@ export const FAQ: FaqItem[] = [
   },
   {
     q: "Como funciona o processo de avaliação?",
-    a: "O processo envolve uma entrevista inicial, sessões de avaliação com instrumentos adequados a cada caso, análise dos resultados e uma sessão de devolutiva, com a entrega de um documento escrito. Número de sessões, prazos e detalhes variam conforme a demanda — entre em contato para receber orientações específicas.",
+    a: "O processo envolve uma entrevista inicial, sessões de avaliação com instrumentos adequados a cada caso, análise dos resultados e uma sessão de devolutiva. Número de sessões, prazos e detalhes variam conforme a demanda — entre em contato para receber orientações específicas.",
   },
   {
     q: "Como saber qual atendimento procurar?",
