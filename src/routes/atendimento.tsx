@@ -47,7 +47,7 @@ function CarePage() {
         }
         intro="Duas modalidades, o mesmo compromisso com a ética, o sigilo e a qualidade da escuta. Você escolhe a que melhor se adapta à sua rotina."
       >
-        <BookingButton message={BOOKING_MESSAGES.agendamento}>Agendar atendimento</BookingButton>
+        <BookingButton variant="whatsapp" message={BOOKING_MESSAGES.agendamento}>Agendar atendimento</BookingButton>
       </PageHero>
 
       <section id="presencial" className="py-20 sm:py-28">

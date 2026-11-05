@@ -45,7 +45,7 @@ function NeuroPage() {
         }
         intro="Um processo cuidadoso de investigação do funcionamento cognitivo, emocional e comportamental, que ajuda a compreender potencialidades e dificuldades de cada pessoa."
       >
-        <BookingButton message={BOOKING_MESSAGES.avaliacao}>
+        <BookingButton variant="whatsapp" message={BOOKING_MESSAGES.avaliacao}>
           Solicitar informações
         </BookingButton>
       </PageHero>

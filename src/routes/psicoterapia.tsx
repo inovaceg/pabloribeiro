@@ -58,7 +58,7 @@ function TherapyPage() {
         }
         intro="A psicoterapia é um processo de cuidado que acontece no encontro entre paciente e psicólogo, com escuta qualificada, ética e respeito à singularidade de cada pessoa."
       >
-        <BookingButton message={MSG}>Agendar atendimento</BookingButton>
+        <BookingButton variant="whatsapp" message={MSG}>Agendar atendimento</BookingButton>
       </PageHero>
 
       {/* O que é psicoterapia */}

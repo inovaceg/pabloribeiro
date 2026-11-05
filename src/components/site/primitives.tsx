@@ -58,7 +58,7 @@ export function SectionHeading({
   );
 }
 
-/** Interior page header with editorial title. */
+/** Interior page header: dark editorial band with texture. */
 export function PageHero({
   eyebrow,
   title,
@@ -71,19 +71,28 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden border-b border-border/70 pt-36 pb-16 sm:pt-44 sm:pb-24">
+    <section className="relative isolate overflow-hidden bg-navy pt-32 pb-16 text-ivory sm:pt-44 sm:pb-24">
+      <div aria-hidden className="grain-layer absolute inset-0 -z-10" />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-40 right-[-10%] size-[34rem] rounded-full bg-sage-soft/70 blur-3xl"
+        className="pointer-events-none absolute -top-32 right-[-12%] -z-10 size-[30rem] rounded-full bg-sage/25 blur-3xl sm:size-[38rem]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-[6%] -bottom-48 -z-10 hidden size-[26rem] rounded-full border border-sand/25 md:block"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-[14%] -bottom-28 -z-10 hidden size-[16rem] rounded-full border border-ivory/10 md:block"
       />
       <div className="container-site relative">
         <Reveal>
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <h1 className="mt-6 max-w-4xl text-[2.6rem] leading-[1.05] text-navy sm:text-6xl lg:text-7xl">
+          <Eyebrow className="text-sand">{eyebrow}</Eyebrow>
+          <h1 className="mt-6 max-w-4xl text-[2.5rem] leading-[1.05] text-ivory sm:text-6xl lg:text-7xl [&_em]:text-sage">
             {title}
           </h1>
           {intro && (
-            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-muted-foreground">{intro}</p>
+            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ivory/75">{intro}</p>
           )}
           {children && <div className="mt-10 flex flex-wrap gap-3">{children}</div>}
         </Reveal>
