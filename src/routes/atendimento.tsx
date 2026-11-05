@@ -8,7 +8,7 @@ import { BookingButton } from "@/components/site/booking";
 import { OfficeMap } from "@/components/site/OfficeMap";
 import { Reveal } from "@/components/site/Reveal";
 import { Eyebrow, PageHero } from "@/components/site/primitives";
-import { CtaBand } from "@/components/site/sections";
+import { CtaBand, EthicsSection, FirstConversation } from "@/components/site/sections";
 
 export const Route = createFileRoute("/atendimento")({
   head: () =>
@@ -100,6 +100,7 @@ function CarePage() {
               O atendimento online segue as mesmas diretrizes éticas do presencial, conforme as
               orientações do Conselho Federal de Psicologia.
               {hasText(site.sessions.onlinePlatform) && ` As sessões acontecem pelo ${site.sessions.onlinePlatform}.`}
+              {hasText(site.sessions.onlineCoverage) && ` Abrangência: ${site.sessions.onlineCoverage}.`}
             </p>
           </Reveal>
           <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -118,6 +119,16 @@ function CarePage() {
           </div>
         </div>
       </section>
+
+      <section className="py-20 sm:py-28">
+        <div className="container-site">
+          <Reveal>
+            <FirstConversation />
+          </Reveal>
+        </div>
+      </section>
+
+      <EthicsSection />
 
       <CtaBand
         title="Vamos encontrar o melhor formato para você?"

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Check } from "lucide-react";
 
 import { BOOKING_MESSAGES } from "@/lib/contact";
 import { pageHead } from "@/lib/seo";
@@ -25,6 +26,15 @@ const FUNCTIONS = [
   ["Funções executivas", "Planejamento, organização, flexibilidade e controle de impulsos."],
   ["Aspectos emocionais e comportamentais", "Como emoções e comportamentos se relacionam com o funcionamento cognitivo."],
 ] as const;
+
+const INDICATIONS = [
+  "Dificuldades de atenção, concentração ou organização",
+  "Queixas de memória, em qualquer fase da vida",
+  "Dificuldades de aprendizagem ou de desempenho escolar",
+  "Investigação de hipóteses como TDAH ou TEA",
+  "Mudanças cognitivas percebidas pela pessoa ou pela família",
+  "Orientação de intervenções, adaptações escolares ou tratamento",
+];
 
 const STEPS = [
   ["Entrevista inicial", "Conversa para compreender a demanda, a história de vida, o contexto escolar, profissional ou familiar e o motivo do encaminhamento, quando houver."],
@@ -70,6 +80,39 @@ function NeuroPage() {
               ))}
             </dl>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-navy py-20 text-ivory sm:py-28">
+        <div className="container-site grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <SectionHeading
+              tone="inverse"
+              eyebrow="Para quem é indicada"
+              title="Crianças, adolescentes, adultos e idosos."
+              intro="A avaliação pode ser realizada em diferentes fases da vida. Muitas vezes ela é solicitada por médicos, escolas ou outros profissionais — mas a própria pessoa ou a família também pode buscá-la."
+            />
+            <Reveal delay={120} className="mt-8">
+              <BookingButton variant="light" message={BOOKING_MESSAGES.avaliacao}>
+                Saber se é indicada para mim
+              </BookingButton>
+            </Reveal>
+          </div>
+          <div className="lg:col-span-7">
+            <p className="eyebrow text-sand">Situações em que costuma ser indicada</p>
+            <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+              {INDICATIONS.map((t, i) => (
+                <Reveal as="li" key={t} delay={i * 60} className="flex gap-3 rounded-xl border border-ivory/15 bg-ivory/5 p-5 leading-relaxed text-ivory/85">
+                  <Check className="mt-1 size-4 shrink-0 text-sand" aria-hidden />
+                  {t}
+                </Reveal>
+              ))}
+            </ul>
+            <p className="mt-6 text-sm leading-relaxed text-ivory/60">
+              A indicação é sempre avaliada individualmente. Em casos de investigação diagnóstica, a
+              avaliação contribui para o trabalho conduzido em conjunto com outros profissionais.
+            </p>
+          </div>
         </div>
       </section>
 
