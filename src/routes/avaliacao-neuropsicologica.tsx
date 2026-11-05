@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 
+import { site, hasText } from "@/config/site";
 import { BOOKING_MESSAGES } from "@/lib/contact";
 import { pageHead } from "@/lib/seo";
 import { BookingButton } from "@/components/site/booking";
@@ -89,8 +90,8 @@ function NeuroPage() {
             <SectionHeading
               tone="inverse"
               eyebrow="Para quem é indicada"
-              title="Crianças, adolescentes, adultos e idosos."
-              intro="A avaliação pode ser realizada em diferentes fases da vida. Muitas vezes ela é solicitada por médicos, escolas ou outros profissionais — mas a própria pessoa ou a família também pode buscá-la."
+              title={hasText(site.neuro.audience) ? site.neuro.audience : "Em diferentes fases da vida."}
+              intro="A avaliação pode ser útil da infância à vida adulta. Muitas vezes ela é solicitada por médicos, escolas ou outros profissionais — mas a própria pessoa ou a família também pode buscá-la."
             />
             <Reveal delay={120} className="mt-8">
               <BookingButton variant="light" message={BOOKING_MESSAGES.avaliacao}>
