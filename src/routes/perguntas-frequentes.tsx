@@ -56,8 +56,8 @@ function FaqPage() {
               <p className="mt-4 font-display text-2xl leading-snug">
                 Converse diretamente comigo para receber orientações.
               </p>
-              <BookingButton variant="light" className="mt-8 w-full">
-                Enviar mensagem
+              <BookingButton variant="whatsapp" className="mt-8 w-full">
+                Falar no WhatsApp
               </BookingButton>
             </div>
           </Reveal>
