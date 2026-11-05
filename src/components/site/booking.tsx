@@ -71,7 +71,9 @@ export function FloatingBooking() {
       aria-label={isWa ? "Agendar pelo WhatsApp" : "Agendar pelo Direct do Instagram"}
       className={cn(
         "fixed right-4 bottom-4 z-40 inline-flex items-center gap-2.5 rounded-full py-3.5 pr-5 pl-4 text-sm font-medium shadow-soft transition-all duration-500 ease-elegant hover:-translate-y-0.5 sm:right-6 sm:bottom-6",
-        isWa ? "bg-whatsapp text-whatsapp-foreground" : "bg-primary text-primary-foreground",
+        isWa
+          ? "bg-whatsapp text-whatsapp-foreground ring-1 ring-paper/40"
+          : "bg-primary text-primary-foreground ring-1 ring-sand/50",
       )}
     >
       {isWa ? <WhatsAppIcon className="size-5" /> : <MessageCircle className="size-5" />}
