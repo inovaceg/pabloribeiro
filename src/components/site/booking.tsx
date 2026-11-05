@@ -59,7 +59,7 @@ export function BookingButton({
   );
 }
 
-/** Floating contact button visible on every page. */
+/** Floating WhatsApp button, always in view on every page. */
 export function FloatingBooking() {
   const channel = useBookingChannel();
   const isWa = channel.kind === "whatsapp";
@@ -70,14 +70,20 @@ export function FloatingBooking() {
       rel="noopener noreferrer"
       aria-label={isWa ? "Agendar pelo WhatsApp" : "Agendar pelo Direct do Instagram"}
       className={cn(
-        "fixed right-4 bottom-4 z-40 inline-flex items-center gap-2.5 rounded-full py-3.5 pr-5 pl-4 text-sm font-medium shadow-soft transition-all duration-500 ease-elegant hover:-translate-y-0.5 sm:right-6 sm:bottom-6",
-        isWa
-          ? "bg-whatsapp text-whatsapp-foreground ring-1 ring-paper/40"
-          : "bg-primary text-primary-foreground ring-1 ring-sand/50",
+        "group fixed right-4 bottom-4 z-[45] inline-flex items-center gap-3 rounded-full py-2 pr-5 pl-2 text-sm font-medium shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)] ring-1 ring-paper/30 transition-all duration-500 ease-elegant hover:-translate-y-1 sm:right-6 sm:bottom-6",
+        isWa ? "bg-whatsapp text-whatsapp-foreground" : "bg-primary text-primary-foreground",
       )}
     >
-      {isWa ? <WhatsAppIcon className="size-5" /> : <MessageCircle className="size-5" />}
-      <span>Agendar</span>
+      <span className="relative flex size-10 items-center justify-center rounded-full bg-paper/15">
+        <span aria-hidden className="absolute inset-0 rounded-full bg-paper/40 animate-soft-pulse" />
+        {isWa ? <WhatsAppIcon className="relative size-5" /> : <MessageCircle className="relative size-5" />}
+      </span>
+      <span className="flex flex-col leading-tight">
+        <span className="text-[0.65rem] font-normal tracking-[0.14em] uppercase opacity-80">
+          {isWa ? "WhatsApp" : "Instagram"}
+        </span>
+        <span>Agende sua consulta</span>
+      </span>
     </a>
   );
 }

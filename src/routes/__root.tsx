@@ -19,17 +19,17 @@ import { FloatingBooking } from "@/components/site/booking";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-[80vh] items-center justify-center bg-background px-4 pt-24">
+    <div className="flex min-h-[80vh] items-center justify-center bg-navy px-4 pt-24 text-ivory">
       <div className="max-w-md text-center">
-        <p className="eyebrow text-sage">Erro 404</p>
-        <h1 className="mt-4 text-5xl text-foreground">Página não encontrada</h1>
-        <p className="mt-4 text-muted-foreground">
+        <p className="eyebrow text-sand">Erro 404</p>
+        <h1 className="mt-4 text-5xl text-ivory">Página não encontrada</h1>
+        <p className="mt-4 text-ivory/70">
           O endereço acessado não existe ou foi alterado.
         </p>
         <div className="mt-8">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-navy-deep"
+            className="inline-flex items-center justify-center rounded-full bg-ivory px-6 py-3 text-sm font-medium text-navy transition-colors hover:bg-paper"
           >
             Voltar ao início
           </Link>
