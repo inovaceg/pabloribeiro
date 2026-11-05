@@ -31,7 +31,7 @@ export function SiteFooter() {
 
         <nav aria-label="Rodapé">
           <ul className="flex flex-wrap gap-x-7 gap-y-3 text-sm">
-            {[...NAV_ITEMS, { to: "/perguntas-frequentes" as const, label: "FAQ" }].map((item) => (
+            {NAV_ITEMS.map((item) => (
               <li key={item.to}>
                 <Link to={item.to} className="text-ivory/85 transition-colors hover:text-sand">
                   {item.label}

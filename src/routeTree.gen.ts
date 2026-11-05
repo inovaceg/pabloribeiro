@@ -17,6 +17,8 @@ import { Route as PerguntasFrequentesRouteImport } from './routes/perguntas-freq
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as PsicoterapiaRouteImport } from './routes/psicoterapia'
 import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as ArtigosIndexRouteImport } from './routes/artigos.index'
+import { Route as ArtigosSlugRouteImport } from './routes/artigos.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -59,6 +61,16 @@ const SobreRoute = SobreRouteImport.update({
   path: '/sobre',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArtigosIndexRoute = ArtigosIndexRouteImport.update({
+  id: '/artigos/',
+  path: '/artigos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtigosSlugRoute = ArtigosSlugRouteImport.update({
+  id: '/artigos/$slug',
+  path: '/artigos/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -69,6 +81,8 @@ export interface FileRoutesByFullPath {
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/psicoterapia': typeof PsicoterapiaRoute
   '/sobre': typeof SobreRoute
+  '/artigos/$slug': typeof ArtigosSlugRoute
+  '/artigos/': typeof ArtigosIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -79,6 +93,8 @@ export interface FileRoutesByTo {
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/psicoterapia': typeof PsicoterapiaRoute
   '/sobre': typeof SobreRoute
+  '/artigos/$slug': typeof ArtigosSlugRoute
+  '/artigos': typeof ArtigosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -90,6 +106,8 @@ export interface FileRoutesById {
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/psicoterapia': typeof PsicoterapiaRoute
   '/sobre': typeof SobreRoute
+  '/artigos/$slug': typeof ArtigosSlugRoute
+  '/artigos/': typeof ArtigosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -102,6 +120,8 @@ export interface FileRouteTypes {
     | '/politica-de-privacidade'
     | '/psicoterapia'
     | '/sobre'
+    | '/artigos/$slug'
+    | '/artigos/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -112,6 +132,8 @@ export interface FileRouteTypes {
     | '/politica-de-privacidade'
     | '/psicoterapia'
     | '/sobre'
+    | '/artigos/$slug'
+    | '/artigos'
   id:
     | '__root__'
     | '/'
@@ -122,6 +144,8 @@ export interface FileRouteTypes {
     | '/politica-de-privacidade'
     | '/psicoterapia'
     | '/sobre'
+    | '/artigos/$slug'
+    | '/artigos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -133,6 +157,8 @@ export interface RootRouteChildren {
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   PsicoterapiaRoute: typeof PsicoterapiaRoute
   SobreRoute: typeof SobreRoute
+  ArtigosSlugRoute: typeof ArtigosSlugRoute
+  ArtigosIndexRoute: typeof ArtigosIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -193,6 +219,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SobreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/artigos/': {
+      id: '/artigos/'
+      path: '/artigos'
+      fullPath: '/artigos/'
+      preLoaderRoute: typeof ArtigosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artigos/$slug': {
+      id: '/artigos/$slug'
+      path: '/artigos/$slug'
+      fullPath: '/artigos/$slug'
+      preLoaderRoute: typeof ArtigosSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -205,6 +245,8 @@ const rootRouteChildren: RootRouteChildren = {
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   PsicoterapiaRoute: PsicoterapiaRoute,
   SobreRoute: SobreRoute,
+  ArtigosSlugRoute: ArtigosSlugRoute,
+  ArtigosIndexRoute: ArtigosIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

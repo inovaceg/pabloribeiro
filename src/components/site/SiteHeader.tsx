@@ -57,7 +57,7 @@ export function SiteHeader() {
         <Logo />
 
         <nav aria-label="Navegação principal" className="hidden xl:block">
-          <ul className="flex items-center gap-7">
+          <ul className="flex items-center gap-5 2xl:gap-7">
             {NAV_ITEMS.map((item) => (
               <li key={item.to}>
                 <Link
