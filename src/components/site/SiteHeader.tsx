@@ -1,26 +1,32 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
+import { CalendarCheck, Menu } from "lucide-react";
 
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { site, instagramUrl } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { BookingButton } from "./booking";
+import { BookingButton, useBookingChannel } from "./booking";
 import { InstagramIcon } from "./icons";
 import { NAV_ITEMS } from "./nav";
 
-export function Logo({ tone = "default" }: { tone?: "default" | "inverse" }) {
+/** Brand lockup: PR monogram + name + role/CRP. Designed for dark backgrounds. */
+export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <Link to="/" className="group inline-flex flex-col leading-none" aria-label="Pablo Ribeiro — Início">
-      <span
-        className={cn(
-          "text-[0.95rem] font-semibold tracking-[0.32em]",
-          tone === "inverse" ? "text-ivory" : "text-navy",
-        )}
-      >
-        PABLO RIBEIRO
+    <Link to="/" className="group inline-flex items-center gap-3 sm:gap-4" aria-label="Pablo Ribeiro — Início">
+      <span aria-hidden className="font-display text-[2.1rem] leading-none font-normal tracking-[-0.14em] text-sand sm:text-[2.4rem]">
+        PR
       </span>
-      <span className="mt-1.5 font-display text-[0.95rem] text-sand italic">{site.role}</span>
+      <span aria-hidden className="h-9 w-px bg-sand/60 sm:h-10" />
+      <span className="flex flex-col leading-none whitespace-nowrap">
+        <span className="font-display text-[1.05rem] font-medium tracking-[0.06em] text-sand sm:text-[1.3rem]">
+          PABLO RIBEIRO
+        </span>
+        {!compact && (
+          <span className="mt-1.5 text-[0.58rem] font-semibold tracking-[0.16em] text-ivory/85 sm:text-[0.62rem]">
+            PSICÓLOGO • {site.crp}
+          </span>
+        )}
+      </span>
     </Link>
   );
 }
@@ -29,6 +35,7 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const channel = useBookingChannel();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -42,10 +49,8 @@ export function SiteHeader() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-elegant",
-        scrolled
-          ? "border-b border-border/70 bg-ivory/85 py-3 backdrop-blur-md"
-          : "border-b border-transparent py-5 sm:py-7",
+        "fixed inset-x-0 top-0 z-50 flex h-[76px] items-center bg-navy transition-shadow duration-500 sm:h-20",
+        scrolled && "shadow-[0_12px_30px_-18px_rgba(0,0,0,0.6)]",
       )}
     >
       <div className="container-site flex items-center justify-between gap-6">
@@ -58,7 +63,7 @@ export function SiteHeader() {
                 <Link
                   to={item.to}
                   activeOptions={{ exact: item.to === "/" }}
-                  className="relative py-2 text-[0.84rem] text-navy/75 transition-colors hover:text-navy data-[status=active]:text-navy after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-sand after:transition-transform after:duration-500 hover:after:scale-x-100 data-[status=active]:after:scale-x-100"
+                  className="relative py-2 text-[0.88rem] text-ivory/85 transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-full after:bg-sand after:transition-transform after:duration-500 hover:text-ivory hover:after:scale-x-100 data-[status=active]:font-semibold data-[status=active]:text-ivory data-[status=active]:after:scale-x-100"
                 >
                   {item.label}
                 </Link>
@@ -68,34 +73,41 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <BookingButton className="hidden px-5 py-3 text-xs tracking-[0.14em] uppercase sm:inline-flex" showIcon={false}>
-            Agendar consulta
-          </BookingButton>
+          <a
+            href={channel.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Agendar pelo WhatsApp"
+            className="hidden items-center gap-2.5 rounded-xl border border-ivory/80 px-5 py-2.5 text-sm font-semibold tracking-[0.08em] text-ivory transition-colors duration-500 hover:bg-ivory hover:text-navy sm:inline-flex"
+          >
+            <CalendarCheck className="size-4" strokeWidth={1.6} />
+            AGENDAR
+          </a>
 
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger
-              className="inline-flex size-11 items-center justify-center rounded-full border border-navy/15 text-navy transition-colors hover:bg-navy/5 xl:hidden"
+              className="inline-flex size-11 items-center justify-center rounded-xl border border-ivory/25 text-ivory transition-colors hover:bg-ivory/10 xl:hidden"
               aria-label="Abrir menu"
             >
               <Menu className="size-5" />
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="flex w-full flex-col border-l-0 bg-navy p-0 text-ivory sm:max-w-md [&>button]:top-7 [&>button]:right-6 [&>button]:text-ivory"
+              className="flex w-full flex-col border-l-0 bg-navy p-0 text-ivory sm:max-w-md [&>button]:top-7 [&>button]:right-6 [&>button]:rounded-full [&>button]:p-2 [&>button]:text-ivory [&>button]:opacity-80 [&>button]:data-[state=open]:bg-transparent"
             >
               <SheetTitle className="sr-only">Menu</SheetTitle>
-              <div className="px-8 pt-7">
-                <Logo tone="inverse" />
+              <div className="px-8 pt-6">
+                <Logo />
               </div>
-              <nav aria-label="Menu móvel" className="mt-12 flex-1 overflow-y-auto px-8">
-                <ul className="space-y-1">
+              <nav aria-label="Menu móvel" className="mt-10 flex-1 overflow-y-auto px-8">
+                <ul>
                   {[...NAV_ITEMS, { to: "/perguntas-frequentes" as const, label: "Perguntas frequentes" }].map(
                     (item, i) => (
                       <li key={item.to}>
                         <Link
                           to={item.to}
                           activeOptions={{ exact: item.to === "/" }}
-                          className="flex items-baseline gap-4 border-b border-ivory/10 py-4 font-display text-2xl text-ivory/80 transition-colors hover:text-ivory data-[status=active]:text-ivory"
+                          className="flex items-baseline gap-4 border-b border-ivory/10 py-4 font-display text-2xl text-ivory/75 transition-colors hover:text-ivory data-[status=active]:text-ivory"
                         >
                           <span className="font-sans text-xs text-sand">
                             {String(i + 1).padStart(2, "0")}
@@ -108,14 +120,14 @@ export function SiteHeader() {
                 </ul>
               </nav>
               <div className="space-y-4 px-8 pt-6 pb-10">
-                <BookingButton variant="light" className="w-full">
-                  Agendar consulta
+                <BookingButton variant="whatsapp" className="w-full py-4">
+                  Agendar pelo WhatsApp
                 </BookingButton>
                 <a
                   href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 text-sm text-ivory/70 hover:text-ivory"
+                  className="flex items-center justify-center gap-2 py-2 text-sm text-ivory/70 hover:text-ivory"
                 >
                   <InstagramIcon className="size-4" /> @{site.contact.instagramHandle}
                 </a>

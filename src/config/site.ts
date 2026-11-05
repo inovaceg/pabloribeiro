@@ -2,8 +2,8 @@
  * Informações editáveis do site.
  *
  * Tudo que é texto institucional, contato ou dado profissional fica aqui.
- * Campos vazios ("" ou []) aparecem no site como "a ser preenchido" e
- * deixam de aparecer assim que forem preenchidos — sem mexer nas páginas.
+ * Campos vazios ("" ou []) ficam ocultos no site público e passam a
+ * aparecer automaticamente assim que forem preenchidos — sem mexer nas páginas.
  */
 
 export const site = {
@@ -17,9 +17,9 @@ export const site = {
 
   contact: {
     /** Somente números, com DDI + DDD. Ex.: "5532999999999". */
-    whatsapp: "",
+    whatsapp: "5532988411284",
     /** Como o número aparece escrito no site. Ex.: "(32) 99999-9999". */
-    whatsappDisplay: "",
+    whatsappDisplay: "(32) 98841-1284",
     email: "",
     instagramHandle: "psico_pabloribeiro",
   },
@@ -62,6 +62,9 @@ export const site = {
     instruments: "",
   },
 } as const;
+
+/** Endereço público do site, usado em canonical, Open Graph e sitemap. */
+export const SITE_URL = "https://pabloribeiro.lovable.app";
 
 export const instagramUrl = `https://www.instagram.com/${site.contact.instagramHandle}/`;
 export const instagramDirectUrl = `https://ig.me/m/${site.contact.instagramHandle}`;

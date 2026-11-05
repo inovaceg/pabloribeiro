@@ -1,7 +1,14 @@
 import { z } from "zod";
 
-export const DEFAULT_BOOKING_MESSAGE =
-  "Olá, Pablo! Encontrei seu site e gostaria de informações sobre o atendimento.";
+/** Pre-filled WhatsApp messages by page of origin. */
+export const BOOKING_MESSAGES = {
+  agendamento: "Olá, Pablo! Gostaria de verificar a disponibilidade de horários para atendimento.",
+  psicoterapia:
+    "Olá, Pablo! Gostaria de obter informações sobre atendimento psicológico e psicoterapia.",
+  avaliacao: "Olá, Pablo! Gostaria de saber mais sobre a Avaliação Neuropsicológica.",
+} as const;
+
+export const DEFAULT_BOOKING_MESSAGE = BOOKING_MESSAGES.agendamento;
 
 /** Returns a wa.me link, or null when the number is missing or incomplete. */
 export function buildWhatsAppUrl(number: string, text?: string): string | null {
@@ -38,7 +45,7 @@ export const contactSchema = z
       .string()
       .trim()
       .max(20, "Telefone muito longo.")
-      .refine((v) => v === "" || (phoneDigits(v).length >= 10 && phoneDigits(v).length <= 13), {
+      .refine((v) => phoneDigits(v).length >= 10 && phoneDigits(v).length <= 13, {
         message: "Informe um telefone válido, com DDD.",
       }),
     email: z
@@ -62,10 +69,6 @@ export const contactSchema = z
     consent: z.boolean().refine((v) => v === true, {
       message: "É necessário concordar com a Política de Privacidade.",
     }),
-  })
-  .refine((d) => d.phone !== "" || d.email !== "", {
-    message: "Informe um telefone ou um e-mail para retorno.",
-    path: ["phone"],
   });
 
 export type ContactInput = z.infer<typeof contactSchema>;
@@ -87,7 +90,7 @@ export function buildContactMessage(d: ContactInput): string {
     `Olá, Pablo! Meu nome é ${d.name}.`,
     `Assunto: ${SUBJECT_LABEL[d.subject]}`,
     `Modalidade: ${MODALITY_LABEL[d.modality]}`,
-    d.phone ? `Telefone: ${d.phone}` : null,
+    `Telefone: ${d.phone}`,
     d.email ? `E-mail: ${d.email}` : null,
     "",
     d.message,

@@ -9,6 +9,7 @@ import { site, instagramDirectUrl } from "@/config/site";
 import { buildContactMessage, buildWhatsAppUrl, contactSchema, type ContactInput } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 import { buttonClass } from "./booking";
+import { WhatsAppIcon } from "./icons";
 
 const fieldClass =
   "w-full rounded-md border border-input bg-paper px-4 py-3.5 text-[0.95rem] text-navy placeholder:text-muted-foreground/70 transition-colors focus:border-sage focus:outline-none focus:ring-2 focus:ring-sage/30 aria-[invalid=true]:border-destructive";
@@ -78,7 +79,8 @@ export function ContactForm() {
     const text = buildContactMessage(data);
     const wa = buildWhatsAppUrl(site.contact.whatsapp, text);
     if (wa) {
-      window.open(wa, "_blank", "noopener,noreferrer");
+      const win = window.open(wa, "_blank", "noopener,noreferrer");
+      if (!win) window.location.href = wa;
       setSent("whatsapp");
     } else {
       try {
@@ -89,7 +91,9 @@ export function ContactForm() {
       window.open(instagramDirectUrl, "_blank", "noopener,noreferrer");
       setSent("instagram");
     }
-    toast.success("Mensagem preparada com sucesso.");
+    toast.success(
+      wa ? "WhatsApp aberto com a sua mensagem pronta." : "Mensagem copiada. Cole no Direct do Instagram.",
+    );
     reset();
   };
 
@@ -97,15 +101,16 @@ export function ContactForm() {
     return (
       <div role="status" className="rounded-xl border border-border bg-paper p-8 sm:p-10">
         <CheckCircle2 className="size-8 text-sage" aria-hidden />
-        <h3 className="mt-5 text-2xl text-navy">Obrigado pelo contato.</h3>
+        <h3 className="mt-5 text-2xl text-navy">
+          {sent === "whatsapp" ? "Sua mensagem está pronta no WhatsApp." : "Sua mensagem foi copiada."}
+        </h3>
         <p className="mt-3 leading-relaxed text-muted-foreground">
           {sent === "whatsapp"
-            ? "Abrimos o WhatsApp em uma nova aba com a sua mensagem pronta. É só confirmar o envio por lá."
-            : "Sua mensagem foi copiada e o Direct do Instagram foi aberto em uma nova aba. É só colar e enviar."}{" "}
-          O retorno será feito o mais breve possível.
+            ? "O WhatsApp foi aberto com a mensagem organizada. Ela só será enviada quando você tocar em enviar por lá."
+            : "O Direct do Instagram foi aberto em uma nova aba. Cole a mensagem e envie por lá."}
         </p>
         <button type="button" onClick={() => setSent(null)} className={buttonClass("outline", "mt-7")}>
-          Escrever outra mensagem
+          Preencher novamente
         </button>
       </div>
     );
@@ -204,7 +209,7 @@ export function ContactForm() {
           {...register("message")}
         />
         <div className="mt-1.5 flex justify-between gap-4 text-xs text-muted-foreground" id="message-hint">
-          <span>Por segurança, evite compartilhar detalhes clínicos por aqui.</span>
+          <span>Não inclua informações clínicas.</span>
           <span>{messageLength}/600</span>
         </div>
         <FieldError id="message-error" message={errors.message?.message} />
@@ -229,14 +234,15 @@ export function ContactForm() {
         <FieldError id="consent-error" message={errors.consent?.message} />
       </div>
 
-      <button type="submit" disabled={isSubmitting} className={buttonClass("primary", "w-full sm:w-auto")}>
+      <button type="submit" disabled={isSubmitting} className={buttonClass("whatsapp", "w-full py-4 sm:w-auto sm:px-8")}>
         {isSubmitting && <Loader2 className="size-4 animate-spin" />}
-        Enviar mensagem
+        <WhatsAppIcon className="size-4" />
+        Preparar mensagem no WhatsApp
       </button>
       <p className="text-xs text-muted-foreground">
-        Ao enviar, sua mensagem é aberta no{" "}
+        A mensagem é aberta no{" "}
         {buildWhatsAppUrl(site.contact.whatsapp) ? "WhatsApp" : "Direct do Instagram"} para você
-        confirmar. Nenhum dado fica armazenado neste site.
+        revisar e enviar. Nenhum dado fica armazenado neste site.
       </p>
     </form>
   );

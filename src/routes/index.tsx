@@ -1,33 +1,40 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, MapPin, MonitorSmartphone, Users } from "lucide-react";
+import { ArrowRight, ClipboardList, MessageSquareMore, MessagesSquare, MonitorSmartphone } from "lucide-react";
 
-import retratoEstudio from "@/assets/pablo_retrato_estudio.jpg.asset.json";
 import retratoConsultorio from "@/assets/pablo_retrato_consultorio.jpg.asset.json";
-import { site, instagramUrl } from "@/config/site";
+import { site, instagramUrl, SITE_URL } from "@/config/site";
+import { BOOKING_MESSAGES } from "@/lib/contact";
 import { pageHead } from "@/lib/seo";
-import { BookingButton, buttonClass } from "@/components/site/booking";
+import { BookingButton } from "@/components/site/booking";
 import { Reveal } from "@/components/site/Reveal";
 import { Eyebrow, NumberedItem, SectionHeading } from "@/components/site/primitives";
-import { CtaBand, InstagramSection } from "@/components/site/sections";
+import { InstagramSection } from "@/components/site/sections";
+
+const HERO_IMAGE = `${SITE_URL}${retratoConsultorio.url}`;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Psychologist",
   name: "Pablo Ribeiro — Psicólogo",
+  url: SITE_URL,
+  image: HERO_IMAGE,
+  telephone: "+55 32 98841-1284",
   description:
-    "Psicoterapia em Terapia Cognitivo-Comportamental e Avaliação Neuropsicológica. Atendimento presencial em Juiz de Fora – MG e online.",
-  areaServed: [{ "@type": "City", name: "Juiz de Fora" }, "Online"],
+    "Psicoterapia, Terapia Cognitivo-Comportamental e Avaliação Neuropsicológica. Atendimento presencial em Juiz de Fora – MG e online.",
+  areaServed: [{ "@type": "City", name: "Juiz de Fora" }, { "@type": "Country", name: "Brasil" }],
   address: { "@type": "PostalAddress", addressLocality: "Juiz de Fora", addressRegion: "MG", addressCountry: "BR" },
+  knowsAbout: ["Psicoterapia", "Terapia Cognitivo-Comportamental", "Avaliação Neuropsicológica"],
   sameAs: [instagramUrl],
 };
 
 export const Route = createFileRoute("/")({
   head: () => ({
     ...pageHead({
-      title: "Pablo Ribeiro | Psicólogo em Juiz de Fora – MG · TCC e Avaliação Neuropsicológica",
+      title: "Pablo Ribeiro | Psicólogo em Juiz de Fora – MG · Psicoterapia e Avaliação Neuropsicológica",
       description:
-        "Psicólogo em Juiz de Fora – MG (CRP 04/53880). Terapia Cognitivo-Comportamental e Avaliação Neuropsicológica, com atendimento presencial e online para todas as idades.",
+        "Psicólogo em Juiz de Fora – MG (CRP 04/53880). Psicoterapia em Terapia Cognitivo-Comportamental e Avaliação Neuropsicológica, com atendimento presencial e online para todas as idades.",
       path: "/",
+      image: HERO_IMAGE,
     }),
     scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],
   }),
@@ -38,170 +45,143 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <Intro />
-      <Areas />
-      <Modalities />
+      <HighlightsStrip />
+      <HowICanHelp />
+      <ListeningRow />
       <WhyTherapy />
       <HowToStart />
       <InstagramSection />
-      <CtaBand />
     </>
   );
 }
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-32 pb-20 sm:pt-40 lg:pt-44 lg:pb-28">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute top-24 -left-40 size-[30rem] rounded-full bg-sage-soft blur-3xl"
-      />
-      <div className="container-site relative grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-7">
+    <section className="relative overflow-hidden bg-ivory pt-[76px] sm:pt-20">
+      {/* Photo: stacked on mobile, full-bleed background on desktop */}
+      <div className="relative lg:absolute lg:inset-0 lg:top-20">
+        <img
+          src={retratoConsultorio.url}
+          alt="Pablo Ribeiro, psicólogo, em seu consultório"
+          width={1774}
+          height={887}
+          fetchPriority="high"
+          className="h-[19rem] w-full object-cover object-[80%_22%] sm:h-[26rem] md:h-[30rem] lg:h-full lg:object-[75%_30%]"
+        />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-ivory to-transparent lg:hidden" />
+        <div
+          aria-hidden
+          className="absolute inset-0 hidden bg-gradient-to-r from-ivory from-[28%] via-ivory/75 via-[46%] to-transparent to-[66%] lg:block"
+        />
+      </div>
+
+      <div className="container-site relative pb-14 lg:py-28 xl:py-32">
+        <div className="max-w-xl">
           <Reveal>
-            <Eyebrow>Psicólogo em {site.city} · Presencial e online</Eyebrow>
+            <p className="eyebrow flex items-center gap-4 text-navy/80">
+              <span aria-hidden className="h-[3px] w-10 rounded-full bg-sand" />
+              Psicologia • {site.city} – {site.state}
+            </p>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="mt-7 text-[2.55rem] leading-[1.06] text-navy sm:text-6xl lg:text-[4.6rem]">
-              Cuidar da saúde mental é também{" "}
-              <em className="font-light text-sage italic">compreender a si mesmo.</em>
+            <h1 className="mt-6 text-[2.35rem] leading-[1.08] font-semibold text-navy sm:text-5xl lg:text-[3.6rem]">
+              Cuidar da saúde mental é também compreender a si mesmo.
             </h1>
           </Reveal>
           <Reveal delay={160}>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
-              Um espaço de acolhimento, escuta e acompanhamento psicológico, com atendimento
-              presencial em Juiz de Fora e modalidade online.
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-navy/75">
+              Atendimento psicológico presencial em Juiz de Fora – MG e online, com acolhimento,
+              escuta qualificada e acompanhamento individualizado.
             </p>
           </Reveal>
           <Reveal delay={240}>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <BookingButton>Agendar atendimento</BookingButton>
-              <Link to="/sobre" className={buttonClass("outline")}>
+            <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
+              <BookingButton
+                message={BOOKING_MESSAGES.agendamento}
+                className="rounded-xl px-7 py-4 text-base font-semibold"
+              >
+                Agendar atendimento
+              </BookingButton>
+              <Link
+                to="/sobre"
+                className="self-center border-b-2 border-sage pb-1 font-semibold text-navy/85 transition-colors hover:border-navy hover:text-navy sm:self-auto"
+              >
                 Conheça meu trabalho
-                <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
               </Link>
             </div>
           </Reveal>
           <Reveal delay={320}>
-            <div className="mt-12 flex items-center gap-5 border-t border-navy/15 pt-6">
-              <div>
-                <p className="font-display text-xl text-navy">{site.name}</p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {site.role} <span className="mx-1.5 text-sand">|</span> {site.crp}
-                </p>
-              </div>
-            </div>
+            <p className="mt-10 text-sm text-navy/70">
+              <span className="font-display text-base font-semibold text-navy">{site.name}</span>
+              <span className="mx-2 text-sand">|</span>
+              {site.role} · {site.crp} · Todas as idades
+            </p>
           </Reveal>
         </div>
-
-        <Reveal delay={200} className="relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
-          <div aria-hidden className="absolute -top-5 -right-5 bottom-10 left-10 rounded-t-[12rem] rounded-b-lg border border-sand/60" />
-          <div className="relative overflow-hidden rounded-t-[12rem] rounded-b-lg bg-sand-soft shadow-soft">
-            <img
-              src={retratoEstudio.url}
-              alt="Pablo Ribeiro, psicólogo, em retrato profissional"
-              width={1122}
-              height={1402}
-              fetchPriority="high"
-              className="aspect-[4/5] w-full object-cover object-top"
-            />
-          </div>
-          <div className="absolute -bottom-6 -left-4 rounded-lg bg-paper px-5 py-4 shadow-soft sm:-left-8">
-            <p className="eyebrow text-sage">Atendimento</p>
-            <p className="mt-1.5 font-display text-lg text-navy">Presencial & online</p>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
 }
 
-function Intro() {
+function HighlightsStrip() {
+  const items = [
+    { icon: MonitorSmartphone, label: "Atendimento presencial e online" },
+    { icon: MessagesSquare, label: "Terapia Cognitivo-Comportamental" },
+    { icon: ClipboardList, label: "Avaliação Neuropsicológica" },
+  ];
   return (
-    <section className="bg-paper py-20 sm:py-28">
-      <div className="container-site grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-        <Reveal className="lg:col-span-6">
-          <div className="overflow-hidden rounded-xl">
-            <img
-              src={retratoConsultorio.url}
-              alt="Pablo Ribeiro no consultório"
-              width={1774}
-              height={887}
-              loading="lazy"
-              className="aspect-[4/3] w-full object-cover object-[78%_center] sm:aspect-[16/10]"
-            />
-          </div>
-        </Reveal>
-        <div className="lg:col-span-6">
-          <SectionHeading
-            eyebrow="Apresentação"
-            title={
-              <>
-                Escuta atenta, método e <em className="text-sage italic">respeito</em> à história de cada pessoa.
-              </>
-            }
-          />
-          <Reveal delay={100}>
-            <p className="mt-6 leading-relaxed text-muted-foreground">
-              Sou Pablo Ribeiro, psicólogo ({site.crp}). Atuo com Terapia Cognitivo-Comportamental
-              e Avaliação Neuropsicológica, atendendo pessoas de todas as idades em {site.city} e
-              também na modalidade online.
-            </p>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
-              Meu trabalho é oferecer um espaço seguro, ético e acolhedor, em que seja possível
-              compreender o que se sente, refletir sobre padrões e construir novas formas de lidar
-              com os desafios.
-            </p>
-            <Link to="/sobre" className="group mt-8 inline-flex items-center gap-2 text-sm font-medium text-navy">
-              <span className="border-b border-sand pb-0.5">Conheça minha trajetória</span>
-              <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
-            </Link>
-          </Reveal>
-        </div>
-      </div>
-    </section>
+    <div className="bg-sage text-paper">
+      <ul className="container-site grid divide-y divide-paper/25 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        {items.map((it) => (
+          <li key={it.label} className="flex items-center gap-3.5 py-4 sm:justify-center sm:px-4 sm:py-5">
+            <it.icon className="size-6 shrink-0" strokeWidth={1.3} aria-hidden />
+            <span className="text-[0.95rem] font-medium">{it.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
-function Areas() {
-  const areas = [
+function HowICanHelp() {
+  const cards = [
     {
-      n: "01",
-      title: "Terapia Cognitivo-Comportamental",
-      text: "Uma abordagem colaborativa que investiga a relação entre pensamentos, emoções e comportamentos, com foco na construção de recursos para lidar com as situações do dia a dia.",
+      icon: MessageSquareMore,
+      title: "Psicoterapia",
+      text: "Um processo de acompanhamento para compreender emoções, padrões de pensamento e formas de agir, com base na Terapia Cognitivo-Comportamental.",
       to: "/psicoterapia" as const,
-      cta: "Sobre a psicoterapia",
     },
     {
-      n: "02",
+      icon: ClipboardList,
       title: "Avaliação Neuropsicológica",
-      text: "Um processo estruturado de investigação das funções cognitivas, emocionais e comportamentais, que contribui para compreender o funcionamento de cada pessoa e orientar condutas.",
+      text: "Investigação das funções cognitivas, emocionais e comportamentais, contribuindo para uma compreensão mais ampla do funcionamento de cada pessoa.",
       to: "/avaliacao-neuropsicologica" as const,
-      cta: "Sobre a avaliação",
     },
   ];
   return (
-    <section className="bg-navy py-20 text-ivory sm:py-28">
+    <section className="bg-ivory py-16 sm:py-20">
       <div className="container-site">
-        <SectionHeading
-          tone="inverse"
-          eyebrow="Áreas de atuação"
-          title="Dois caminhos complementares de cuidado."
-          intro="Psicoterapia e avaliação respondem a necessidades diferentes — e, em muitos casos, se complementam."
-        />
-        <div className="mt-14 grid gap-5 md:grid-cols-2">
-          {areas.map((a, i) => (
-            <Reveal key={a.n} delay={i * 120}>
+        <Reveal className="text-center">
+          <h2 className="text-3xl font-semibold text-navy sm:text-[2.6rem]">Como posso ajudar?</h2>
+          <span aria-hidden className="mx-auto mt-5 block h-[3px] w-12 rounded-full bg-sand" />
+        </Reveal>
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {cards.map((c, i) => (
+            <Reveal key={c.title} delay={i * 120}>
               <Link
-                to={a.to}
-                className="group flex h-full flex-col rounded-xl border border-ivory/12 bg-ivory/[0.03] p-8 transition-all duration-700 ease-elegant hover:border-sand/50 hover:bg-ivory/[0.06] sm:p-10"
+                to={c.to}
+                className="group flex h-full flex-col gap-5 rounded-2xl border border-border bg-paper/60 p-6 transition-all duration-500 ease-elegant hover:-translate-y-1 hover:border-sage/60 hover:bg-paper hover:shadow-soft sm:flex-row sm:p-7"
               >
-                <span className="font-display text-5xl font-light text-sand/80 italic">{a.n}</span>
-                <h3 className="mt-8 text-2xl text-ivory sm:text-3xl">{a.title}</h3>
-                <p className="mt-4 flex-1 leading-relaxed text-ivory/70">{a.text}</p>
-                <span className="mt-10 inline-flex items-center gap-2 text-sm font-medium text-ivory">
-                  {a.cta}
-                  <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
+                <span className="flex size-14 shrink-0 items-center justify-center rounded-xl border border-sage/30 bg-sage-soft text-navy sm:size-16">
+                  <c.icon className="size-7" strokeWidth={1.3} aria-hidden />
+                </span>
+                <span className="flex flex-col">
+                  <span className="font-display text-2xl font-semibold text-navy">{c.title}</span>
+                  <span className="mt-2 leading-relaxed text-navy/75">{c.text}</span>
+                  <span className="mt-4 inline-flex items-center gap-2 font-semibold text-navy">
+                    Saiba mais
+                    <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
+                  </span>
                 </span>
               </Link>
             </Reveal>
@@ -212,48 +192,50 @@ function Areas() {
   );
 }
 
-function Modalities() {
-  const items = [
-    {
-      icon: MapPin,
-      title: "Presencial",
-      text: `Atendimento em consultório em ${site.city} – ${site.state}, em um ambiente reservado e acolhedor.`,
-    },
-    {
-      icon: MonitorSmartphone,
-      title: "Online",
-      text: "Sessões por videochamada, com o mesmo cuidado ético e sigilo, onde você estiver.",
-    },
-    {
-      icon: Users,
-      title: "Todas as idades",
-      text: "Acompanhamento para crianças, adolescentes, adultos e idosos, respeitando cada fase da vida.",
-    },
-  ];
+function ListeningRow() {
   return (
-    <section className="py-20 sm:py-28">
-      <div className="container-site">
-        <div className="grid gap-12 lg:grid-cols-12">
-          <SectionHeading
-            className="lg:col-span-5"
-            eyebrow="Modalidades"
-            title="Atendimento presencial em Juiz de Fora e online."
-          />
-          <div className="grid gap-8 sm:grid-cols-3 lg:col-span-7">
-            {items.map((it, i) => (
-              <Reveal key={it.title} delay={i * 100}>
-                <it.icon className="size-6 text-sage" strokeWidth={1.4} aria-hidden />
-                <h3 className="mt-5 text-xl text-navy">{it.title}</h3>
-                <p className="mt-2.5 text-[0.95rem] leading-relaxed text-muted-foreground">{it.text}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-        <Reveal className="mt-14">
-          <Link to="/atendimento" className="group inline-flex items-center gap-2 text-sm font-medium text-navy">
-            <span className="border-b border-sand pb-0.5">Como funciona o atendimento</span>
+    <section className="bg-sand-soft/40 py-16 sm:py-20">
+      <div className="container-site grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-12">
+        <Reveal className="flex flex-col justify-center md:col-span-2 lg:col-span-4 lg:pr-6">
+          <h2 className="text-3xl leading-[1.12] font-semibold text-navy sm:text-[2.2rem]">
+            Um espaço de escuta, acolhimento e desenvolvimento.
+          </h2>
+          <span aria-hidden className="mt-6 block h-[3px] w-12 rounded-full bg-sand" />
+          <p className="mt-6 leading-relaxed text-navy/75">
+            Atendimento psicológico pautado na escuta qualificada, no respeito à sua história e na
+            construção de estratégias que façam sentido para a sua vida.
+          </p>
+          <Link to="/sobre" className="group mt-6 inline-flex items-center gap-2 font-semibold text-navy">
+            Conheça Pablo Ribeiro
             <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
           </Link>
+        </Reveal>
+        <Reveal delay={100} className="lg:col-span-4">
+          <div className="h-full overflow-hidden rounded-2xl">
+            <img
+              src={retratoConsultorio.url}
+              alt="Retrato de Pablo Ribeiro no consultório"
+              width={1774}
+              height={887}
+              loading="lazy"
+              className="aspect-[4/5] h-full w-full object-cover object-[74%_25%] md:aspect-auto md:min-h-80"
+            />
+          </div>
+        </Reveal>
+        <Reveal delay={180} className="lg:col-span-4">
+          <div className="relative isolate flex h-full flex-col justify-center overflow-hidden rounded-2xl bg-navy p-8 text-ivory sm:p-10">
+            <div aria-hidden className="absolute -top-24 -right-24 -z-10 size-48 rounded-full border border-sand/60" />
+            <h2 className="text-3xl font-semibold text-ivory sm:text-[2.1rem]">Vamos conversar?</h2>
+            <p className="mt-4 text-lg leading-relaxed text-ivory/80">
+              Entre em contato pelo WhatsApp, tire suas dúvidas e agende seu atendimento.
+            </p>
+            <BookingButton
+              message={BOOKING_MESSAGES.agendamento}
+              className="mt-8 rounded-xl bg-sage py-4 font-semibold text-paper hover:bg-sage/90"
+            >
+              Entrar em contato pelo WhatsApp
+            </BookingButton>
+          </div>
         </Reveal>
       </div>
     </section>
@@ -268,12 +250,12 @@ function WhyTherapy() {
     ["Bem-estar emocional", "Desenvolver recursos para lidar com ansiedade, estresse e situações difíceis."],
   ];
   return (
-    <section className="border-y border-border/70 bg-sand-soft/50 py-20 sm:py-28">
+    <section className="py-20 sm:py-28">
       <div className="container-site grid gap-14 lg:grid-cols-12">
         <Reveal className="lg:col-span-5">
           <Eyebrow>Por que fazer acompanhamento</Eyebrow>
           <blockquote className="mt-7">
-            <p className="font-display text-3xl leading-[1.2] font-light text-navy sm:text-4xl">
+            <p className="font-display text-3xl leading-[1.2] font-light text-navy sm:text-[2.6rem]">
               “Psicoterapia não é só para crises, é também para{" "}
               <em className="text-sage">crescimento.</em>”
             </p>
@@ -282,6 +264,9 @@ function WhyTherapy() {
             Buscar acompanhamento psicológico é um gesto de cuidado. Não é preciso esperar que algo
             esteja muito difícil para começar.
           </p>
+          <BookingButton message={BOOKING_MESSAGES.psicoterapia} className="mt-8">
+            Quero conversar
+          </BookingButton>
         </Reveal>
         <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:col-span-7">
           {points.map(([t, d], i) => (
@@ -299,22 +284,18 @@ function WhyTherapy() {
 
 function HowToStart() {
   const steps = [
-    ["Entre em contato", "Envie uma mensagem pelos botões de agendamento ou pelo formulário de contato."],
+    ["Envie uma mensagem", "Fale comigo pelo WhatsApp ou pelo formulário de contato."],
     ["Primeira conversa", "Um momento de escuta para entender sua demanda e explicar como funciona o processo."],
     ["Acompanhamento", "Definimos juntos a modalidade, a frequência e os próximos passos."],
   ];
   return (
-    <section className="py-20 sm:py-28">
+    <section className="border-y border-border/70 bg-sand-soft/50 py-20 sm:py-28">
       <div className="container-site">
-        <SectionHeading
-          align="center"
-          eyebrow="Como começar"
-          title="O primeiro passo pode ser simples."
-        />
-        <ol className="mt-16 grid gap-10 md:grid-cols-3 md:gap-8">
+        <SectionHeading align="center" eyebrow="Como começar" title="O primeiro passo pode ser simples." />
+        <ol className="relative mt-16 grid gap-10 md:grid-cols-3 md:gap-8 md:before:absolute md:before:top-7 md:before:right-[16%] md:before:left-[16%] md:before:h-px md:before:bg-sand/60 md:before:content-['']">
           {steps.map(([t, d], i) => (
             <Reveal as="li" key={t} delay={i * 120} className="relative text-center">
-              <span className="mx-auto flex size-14 items-center justify-center rounded-full border border-sand font-display text-xl text-navy italic">
+              <span className="relative mx-auto flex size-14 items-center justify-center rounded-full bg-navy font-display text-xl text-ivory italic ring-8 ring-sand-soft">
                 {i + 1}
               </span>
               <h3 className="mt-6 text-xl text-navy">{t}</h3>
@@ -322,6 +303,11 @@ function HowToStart() {
             </Reveal>
           ))}
         </ol>
+        <Reveal className="mt-14 flex justify-center">
+          <BookingButton variant="whatsapp" message={BOOKING_MESSAGES.agendamento} className="py-4 sm:px-8">
+            Agendar pelo WhatsApp
+          </BookingButton>
+        </Reveal>
       </div>
     </section>
   );

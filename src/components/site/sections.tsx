@@ -12,10 +12,12 @@ import { Eyebrow } from "./primitives";
 /** Closing call-to-action used across pages. */
 export function CtaBand({
   title = "Quando sentir que é o momento, estou à disposição para conversar.",
-  text = "Entre em contato para tirar dúvidas, conhecer as modalidades de atendimento e agendar uma primeira conversa.",
+  text = "Fale comigo pelo WhatsApp para tirar dúvidas, conhecer as modalidades de atendimento e verificar horários disponíveis.",
+  message,
 }: {
   title?: string;
   text?: string;
+  message?: string;
 }) {
   return (
     <section className="py-20 sm:py-28">
@@ -38,7 +40,7 @@ export function CtaBand({
               <p className="mt-6 max-w-xl leading-relaxed text-ivory/70">{text}</p>
             </div>
             <div className="flex flex-col gap-3 sm:flex-row lg:col-span-4 lg:flex-col lg:items-end">
-              <BookingButton variant="light">Agendar atendimento</BookingButton>
+              <BookingButton variant="light" {...(message ? { message } : {})}>Agendar pelo WhatsApp</BookingButton>
               <p className="text-xs text-ivory/50 lg:text-right">
                 {site.name} · {site.crp}
               </p>
