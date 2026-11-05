@@ -1,15 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, MapPin, MonitorSmartphone, Users, BadgeCheck } from "lucide-react";
+import { ArrowRight, ClipboardList, MessageSquareMore, MessagesSquare, MonitorSmartphone } from "lucide-react";
 
-import retratoEstudio from "@/assets/pablo_retrato_estudio.jpg.asset.json";
 import retratoConsultorio from "@/assets/pablo_retrato_consultorio.jpg.asset.json";
 import { site, instagramUrl, SITE_URL } from "@/config/site";
 import { BOOKING_MESSAGES } from "@/lib/contact";
 import { pageHead } from "@/lib/seo";
-import { BookingButton, buttonClass } from "@/components/site/booking";
+import { BookingButton } from "@/components/site/booking";
 import { Reveal } from "@/components/site/Reveal";
 import { Eyebrow, NumberedItem, SectionHeading } from "@/components/site/primitives";
-import { CtaBand, InstagramSection } from "@/components/site/sections";
+import { InstagramSection } from "@/components/site/sections";
 
 const HERO_IMAGE = `${SITE_URL}${retratoConsultorio.url}`;
 
@@ -46,242 +45,144 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <Marquee />
-      <Intro />
-      <Areas />
-      <Modalities />
+      <HighlightsStrip />
+      <HowICanHelp />
+      <ListeningRow />
       <WhyTherapy />
       <HowToStart />
       <InstagramSection />
-      <CtaBand />
     </>
   );
 }
 
-function RotatingSeal() {
-  const text = "PRESENCIAL · ONLINE · JUIZ DE FORA · TODAS AS IDADES · ";
-  return (
-    <div className="relative size-28 sm:size-32" aria-hidden>
-      <svg viewBox="0 0 120 120" className="absolute inset-0 animate-[spin_40s_linear_infinite] motion-reduce:animate-none">
-        <defs>
-          <path id="seal-circle" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0" />
-        </defs>
-        <text className="fill-ivory text-[8.6px] font-semibold tracking-[0.2em]">
-          <textPath href="#seal-circle">{text}</textPath>
-        </text>
-      </svg>
-      <div className="absolute inset-[30%] flex items-center justify-center rounded-full bg-sand font-display text-xl text-navy italic">
-        PR
-      </div>
-    </div>
-  );
-}
-
 function Hero() {
-  const credentials = [
-    { icon: BadgeCheck, label: `${site.role} · ${site.crp}` },
-    { icon: MapPin, label: `Presencial em ${site.city}` },
-    { icon: MonitorSmartphone, label: "Atendimento online" },
-    { icon: Users, label: "Todas as idades" },
-  ];
   return (
-    <section className="relative isolate overflow-hidden bg-navy pt-28 pb-16 text-ivory sm:pt-36 lg:pt-40 lg:pb-24">
-      <div aria-hidden className="grain-layer absolute inset-0 -z-10" />
-      <div aria-hidden className="pointer-events-none absolute -top-40 -left-40 -z-10 size-[34rem] rounded-full bg-sage/20 blur-3xl" />
-      <div aria-hidden className="pointer-events-none absolute right-[-10%] bottom-[-20%] -z-10 size-[40rem] rounded-full bg-sand/10 blur-3xl" />
+    <section className="relative overflow-hidden bg-ivory pt-[76px] sm:pt-20">
+      {/* Photo: stacked on mobile, full-bleed background on desktop */}
+      <div className="relative lg:absolute lg:inset-0 lg:top-20">
+        <img
+          src={retratoConsultorio.url}
+          alt="Pablo Ribeiro, psicólogo, em seu consultório"
+          width={1774}
+          height={887}
+          fetchPriority="high"
+          className="h-[19rem] w-full object-cover object-[80%_22%] sm:h-[26rem] md:h-[30rem] lg:h-full lg:object-[75%_30%]"
+        />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-ivory to-transparent lg:hidden" />
+        <div
+          aria-hidden
+          className="absolute inset-0 hidden bg-gradient-to-r from-ivory from-[28%] via-ivory/75 via-[46%] to-transparent to-[66%] lg:block"
+        />
+      </div>
 
-      <div className="container-site grid items-center gap-14 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-7">
+      <div className="container-site relative pb-14 lg:py-28 xl:py-32">
+        <div className="max-w-xl">
           <Reveal>
-            <Eyebrow className="text-sand">Psicólogo em {site.city} – {site.state}</Eyebrow>
+            <p className="eyebrow flex items-center gap-4 text-navy/80">
+              <span aria-hidden className="h-[3px] w-10 rounded-full bg-sand" />
+              Psicologia • {site.city} – {site.state}
+            </p>
           </Reveal>
           <Reveal delay={80}>
-            <h1 className="mt-7 text-[2.4rem] leading-[1.06] text-ivory sm:text-6xl lg:text-[4.3rem]">
-              Um espaço para compreender suas emoções e{" "}
-              <em className="font-light text-sage italic">cuidar da sua saúde mental.</em>
+            <h1 className="mt-6 text-[2.35rem] leading-[1.08] font-semibold text-navy sm:text-5xl lg:text-[3.6rem]">
+              Cuidar da saúde mental é também compreender a si mesmo.
             </h1>
           </Reveal>
           <Reveal delay={160}>
-            <p className="mt-7 max-w-xl text-lg leading-relaxed text-ivory/75">
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-navy/75">
               Atendimento psicológico presencial em Juiz de Fora – MG e online, com acolhimento,
               escuta qualificada e acompanhamento individualizado.
             </p>
           </Reveal>
           <Reveal delay={240}>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <BookingButton variant="whatsapp" message={BOOKING_MESSAGES.agendamento} className="py-4 sm:px-7">
+            <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-8">
+              <BookingButton
+                message={BOOKING_MESSAGES.agendamento}
+                className="rounded-xl px-7 py-4 text-base font-semibold"
+              >
                 Agendar atendimento
               </BookingButton>
               <Link
                 to="/sobre"
-                className={buttonClass(
-                  "outline",
-                  "border-ivory/30 py-4 text-ivory hover:border-ivory hover:bg-ivory/10 sm:px-7",
-                )}
+                className="self-center border-b-2 border-sage pb-1 font-semibold text-sage transition-colors hover:border-navy hover:text-navy sm:self-auto"
               >
                 Conheça meu trabalho
-                <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
               </Link>
             </div>
           </Reveal>
           <Reveal delay={320}>
-            <ul className="mt-12 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-ivory/15 pt-7 sm:flex sm:flex-wrap sm:gap-x-8">
-              {credentials.map((c) => (
-                <li key={c.label} className="flex items-center gap-2.5 text-sm text-ivory/80">
-                  <c.icon className="size-4 shrink-0 text-sand" strokeWidth={1.6} aria-hidden />
-                  {c.label}
-                </li>
-              ))}
-            </ul>
+            <p className="mt-10 text-sm text-navy/70">
+              <span className="font-display text-base font-semibold text-navy">{site.name}</span>
+              <span className="mx-2 text-sand">|</span>
+              {site.role} · {site.crp} · Todas as idades
+            </p>
           </Reveal>
         </div>
-
-        <Reveal delay={200} className="relative mx-auto w-full max-w-[22rem] sm:max-w-sm lg:col-span-5 lg:max-w-none lg:pl-6">
-          <div aria-hidden className="absolute -top-4 -right-4 bottom-12 left-10 rounded-t-[14rem] rounded-b-xl border border-sand/50 lg:left-16" />
-          <div className="relative overflow-hidden rounded-t-[14rem] rounded-b-xl bg-sand-soft shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)]">
-            <img
-              src={retratoEstudio.url}
-              alt="Pablo Ribeiro, psicólogo, em retrato profissional"
-              width={1122}
-              height={1402}
-              fetchPriority="high"
-              className="aspect-[4/5] w-full object-cover object-[50%_12%]"
-            />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-deep/90 via-navy-deep/50 to-transparent px-6 pt-20 pb-6">
-              <p className="font-display text-2xl text-ivory sm:text-3xl">{site.name}</p>
-              <p className="mt-1 text-sm text-ivory/80">
-                {site.role} <span className="mx-1.5 text-sand">|</span> {site.crp}
-              </p>
-            </div>
-          </div>
-          <div className="absolute -top-6 -left-4 sm:-left-10 lg:-left-6">
-            <RotatingSeal />
-          </div>
-        </Reveal>
       </div>
     </section>
   );
 }
 
-function Marquee() {
-  const items = ["Psicoterapia", "Terapia Cognitivo-Comportamental", "Avaliação Neuropsicológica", "Presencial em Juiz de Fora", "Atendimento online", "Todas as idades"];
-  const row = [...items, ...items];
+function HighlightsStrip() {
+  const items = [
+    { icon: MonitorSmartphone, label: "Atendimento presencial e online" },
+    { icon: MessagesSquare, label: "Terapia Cognitivo-Comportamental" },
+    { icon: ClipboardList, label: "Avaliação Neuropsicológica" },
+  ];
   return (
-    <div className="overflow-hidden border-y border-sand/40 bg-sand-soft py-5" aria-label="Áreas de atuação">
-      <div className="flex w-max animate-marquee">
-        {row.map((t, i) => (
-          <span key={i} className="flex items-center gap-8 pr-8 font-display text-xl whitespace-nowrap text-navy/80 italic sm:text-2xl" aria-hidden={i >= items.length}>
-            {t}
-            <span className="size-1.5 rounded-full bg-sage" aria-hidden />
-          </span>
+    <div className="bg-sage text-paper">
+      <ul className="container-site grid divide-y divide-paper/25 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        {items.map((it) => (
+          <li key={it.label} className="flex items-center gap-3.5 py-4 sm:justify-center sm:px-4 sm:py-5">
+            <it.icon className="size-6 shrink-0" strokeWidth={1.3} aria-hidden />
+            <span className="text-[0.95rem] font-medium">{it.label}</span>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
 
-function Intro() {
-  return (
-    <section className="py-20 sm:py-28">
-      <div className="container-site grid items-center gap-14 lg:grid-cols-12 lg:gap-16">
-        <Reveal className="relative lg:col-span-6">
-          <div className="overflow-hidden rounded-2xl">
-            <img
-              src={retratoConsultorio.url}
-              alt="Pablo Ribeiro no consultório"
-              width={1774}
-              height={887}
-              loading="lazy"
-              className="aspect-[4/5] w-full object-cover object-[76%_30%] sm:aspect-[5/4]"
-            />
-          </div>
-          <figure className="absolute right-4 -bottom-8 left-4 rounded-xl bg-navy p-6 text-ivory shadow-soft sm:right-auto sm:-bottom-10 sm:left-auto sm:-right-6 sm:max-w-xs lg:-right-10">
-            <blockquote className="font-display text-lg leading-snug italic">
-              “Entender o que você sente é o primeiro passo para mudar o que você vive.”
-            </blockquote>
-            <figcaption className="mt-3 text-xs tracking-[0.14em] text-sand uppercase">Pablo Ribeiro</figcaption>
-          </figure>
-        </Reveal>
-        <div className="pt-6 lg:col-span-6 lg:pt-0">
-          <SectionHeading
-            eyebrow="Apresentação"
-            title={
-              <>
-                Escuta atenta, método e <em className="text-sage italic">respeito</em> à história de cada pessoa.
-              </>
-            }
-          />
-          <Reveal delay={100}>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
-              Sou Pablo Ribeiro, psicólogo ({site.crp}). Atuo com psicoterapia, a partir da Terapia
-              Cognitivo-Comportamental, e com Avaliação Neuropsicológica, atendendo pessoas de todas
-              as idades em {site.city} e online.
-            </p>
-            <p className="mt-4 leading-relaxed text-muted-foreground">
-              Meu trabalho é oferecer um espaço seguro, ético e acolhedor, em que seja possível
-              compreender o que se sente e construir novas formas de lidar com os desafios.
-            </p>
-            <Link to="/sobre" className="group mt-8 inline-flex items-center gap-2 text-sm font-medium text-navy">
-              <span className="border-b border-sand pb-0.5">Conheça mais sobre mim</span>
-              <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
-            </Link>
-          </Reveal>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Areas() {
-  const areas = [
+function HowICanHelp() {
+  const cards = [
     {
-      n: "01",
-      title: "Psicoterapia · TCC",
-      text: "Uma abordagem colaborativa que investiga a relação entre pensamentos, emoções e comportamentos, com foco em recursos para lidar com o dia a dia.",
+      icon: MessageSquareMore,
+      title: "Psicoterapia",
+      text: "Um processo de acompanhamento para compreender emoções, padrões de pensamento e formas de agir, com base na Terapia Cognitivo-Comportamental.",
       to: "/psicoterapia" as const,
-      tags: ["Adultos", "Adolescentes", "Crianças", "Idosos"],
     },
     {
-      n: "02",
+      icon: ClipboardList,
       title: "Avaliação Neuropsicológica",
-      text: "Um processo estruturado de investigação das funções cognitivas, emocionais e comportamentais, que ajuda a compreender o funcionamento de cada pessoa.",
+      text: "Investigação das funções cognitivas, emocionais e comportamentais, contribuindo para uma compreensão mais ampla do funcionamento de cada pessoa.",
       to: "/avaliacao-neuropsicologica" as const,
-      tags: ["Atenção", "Memória", "Linguagem", "Funções executivas"],
     },
   ];
   return (
-    <section className="bg-paper py-20 sm:py-28">
+    <section className="bg-ivory py-16 sm:py-20">
       <div className="container-site">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading eyebrow="Áreas de atuação" title="Dois caminhos complementares de cuidado." />
-          <Reveal delay={100}>
-            <Link to="/atendimento" className={buttonClass("outline")}>
-              Como funciona o atendimento <ArrowRight className="size-4" />
-            </Link>
-          </Reveal>
-        </div>
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {areas.map((a, i) => (
-            <Reveal key={a.n} delay={i * 120}>
+        <Reveal className="text-center">
+          <h2 className="text-3xl font-semibold text-navy sm:text-[2.6rem]">Como posso ajudar?</h2>
+          <span aria-hidden className="mx-auto mt-5 block h-[3px] w-12 rounded-full bg-sand" />
+        </Reveal>
+        <div className="mt-10 grid gap-5 md:grid-cols-2">
+          {cards.map((c, i) => (
+            <Reveal key={c.title} delay={i * 120}>
               <Link
-                to={a.to}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-ivory p-8 transition-all duration-700 ease-elegant hover:-translate-y-1 hover:border-navy hover:bg-navy hover:shadow-soft sm:p-10"
+                to={c.to}
+                className="group flex h-full gap-5 rounded-2xl border border-border bg-paper/60 p-6 transition-all duration-500 ease-elegant hover:-translate-y-1 hover:border-sage/60 hover:bg-paper hover:shadow-soft sm:p-7"
               >
-                <div className="flex items-start justify-between">
-                  <span className="font-display text-6xl font-light text-sand italic transition-colors duration-700">{a.n}</span>
-                  <span className="flex size-12 items-center justify-center rounded-full border border-navy/15 text-navy transition-all duration-700 group-hover:rotate-45 group-hover:border-sand group-hover:bg-sand group-hover:text-navy">
-                    <ArrowUpRight className="size-5" />
+                <span className="flex size-14 shrink-0 items-center justify-center rounded-xl border border-sage/30 bg-sage-soft text-navy sm:size-16">
+                  <c.icon className="size-7" strokeWidth={1.3} aria-hidden />
+                </span>
+                <span className="flex flex-col">
+                  <span className="font-display text-2xl font-semibold text-navy">{c.title}</span>
+                  <span className="mt-2 leading-relaxed text-navy/75">{c.text}</span>
+                  <span className="mt-4 inline-flex items-center gap-2 font-semibold text-navy">
+                    Saiba mais
+                    <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
                   </span>
-                </div>
-                <h3 className="mt-10 text-3xl text-navy transition-colors duration-700 group-hover:text-ivory sm:text-[2.1rem]">{a.title}</h3>
-                <p className="mt-4 flex-1 leading-relaxed text-muted-foreground transition-colors duration-700 group-hover:text-ivory/70">{a.text}</p>
-                <ul className="mt-8 flex flex-wrap gap-2">
-                  {a.tags.map((t) => (
-                    <li key={t} className="rounded-full border border-navy/15 px-3 py-1 text-xs text-navy/80 transition-colors duration-700 group-hover:border-ivory/20 group-hover:text-ivory/80">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
+                </span>
               </Link>
             </Reveal>
           ))}
@@ -291,29 +192,51 @@ function Areas() {
   );
 }
 
-function Modalities() {
-  const items = [
-    { icon: MapPin, title: "Presencial", text: `Consultório em ${site.city} – ${site.state}, em um ambiente reservado e acolhedor.` },
-    { icon: MonitorSmartphone, title: "Online", text: "Sessões por videochamada, com o mesmo cuidado ético e sigilo, onde você estiver." },
-    { icon: Users, title: "Todas as idades", text: "Acompanhamento para crianças, adolescentes, adultos e idosos." },
-  ];
+function ListeningRow() {
   return (
-    <section className="relative isolate overflow-hidden bg-navy py-20 text-ivory sm:py-28">
-      <div aria-hidden className="grain-layer absolute inset-0 -z-10" />
-      <div aria-hidden className="pointer-events-none absolute -right-40 -bottom-40 -z-10 size-[30rem] rounded-full border border-sand/20" />
-      <div className="container-site">
-        <SectionHeading tone="inverse" eyebrow="Modalidades" title="Presencial em Juiz de Fora e online." />
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl bg-ivory/10 sm:grid-cols-3">
-          {items.map((it, i) => (
-            <Reveal key={it.title} delay={i * 100} className="bg-navy p-8 sm:p-10">
-              <span className="flex size-12 items-center justify-center rounded-full bg-ivory/5 ring-1 ring-sand/40">
-                <it.icon className="size-5 text-sand" strokeWidth={1.5} aria-hidden />
-              </span>
-              <h3 className="mt-6 text-2xl text-ivory">{it.title}</h3>
-              <p className="mt-3 leading-relaxed text-ivory/70">{it.text}</p>
-            </Reveal>
-          ))}
-        </div>
+    <section className="bg-sand-soft/40 py-16 sm:py-20">
+      <div className="container-site grid items-stretch gap-6 md:grid-cols-2 lg:grid-cols-12">
+        <Reveal className="flex flex-col justify-center md:col-span-2 lg:col-span-4 lg:pr-6">
+          <h2 className="text-3xl leading-[1.12] font-semibold text-navy sm:text-[2.2rem]">
+            Um espaço de escuta, acolhimento e desenvolvimento.
+          </h2>
+          <span aria-hidden className="mt-6 block h-[3px] w-12 rounded-full bg-sand" />
+          <p className="mt-6 leading-relaxed text-navy/75">
+            Atendimento psicológico pautado na escuta qualificada, no respeito à sua história e na
+            construção de estratégias que façam sentido para a sua vida.
+          </p>
+          <Link to="/sobre" className="group mt-6 inline-flex items-center gap-2 font-semibold text-navy">
+            Conheça Pablo Ribeiro
+            <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
+          </Link>
+        </Reveal>
+        <Reveal delay={100} className="lg:col-span-4">
+          <div className="h-full overflow-hidden rounded-2xl">
+            <img
+              src={retratoConsultorio.url}
+              alt="Retrato de Pablo Ribeiro no consultório"
+              width={1774}
+              height={887}
+              loading="lazy"
+              className="aspect-[4/5] h-full w-full object-cover object-[74%_25%] md:aspect-auto md:min-h-80"
+            />
+          </div>
+        </Reveal>
+        <Reveal delay={180} className="lg:col-span-4">
+          <div className="relative isolate flex h-full flex-col justify-center overflow-hidden rounded-2xl bg-navy p-8 text-ivory sm:p-10">
+            <div aria-hidden className="absolute -top-24 -right-24 -z-10 size-48 rounded-full border border-sand/60" />
+            <h2 className="text-3xl font-semibold text-ivory sm:text-[2.1rem]">Vamos conversar?</h2>
+            <p className="mt-4 text-lg leading-relaxed text-ivory/80">
+              Entre em contato pelo WhatsApp, tire suas dúvidas e agende seu atendimento.
+            </p>
+            <BookingButton
+              message={BOOKING_MESSAGES.agendamento}
+              className="mt-8 rounded-xl bg-sage py-4 font-semibold text-paper hover:bg-sage/90"
+            >
+              Entrar em contato pelo WhatsApp
+            </BookingButton>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
