@@ -76,8 +76,9 @@ function ContactPage() {
                 <div>
                   <p className="text-sm text-muted-foreground">Localização</p>
                   <p className="text-navy">
-                    {hasText(site.office.address) ? `${site.office.address} — ` : ""}
+                    {hasText(site.office.address) ? `${site.office.address}, ${site.office.neighborhood} — ` : ""}
                     {site.city} – {site.state}
+                    {hasText(site.office.cep) ? ` · CEP ${site.office.cep}` : ""}
                   </p>
                 </div>
               </div>

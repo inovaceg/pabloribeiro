@@ -26,15 +26,16 @@ export const site = {
 
   office: {
     /** Ex.: "Rua Exemplo, 123 — sala 45" */
-    address: "",
-    neighborhood: "",
-    cep: "",
+    address: "Rua Dr. Constantino Paleta, nº 171 – Sala 201 (2º andar)",
+    neighborhood: "Centro",
+    cep: "36015-450",
     /** Informações úteis: estacionamento, acessibilidade, referência. */
     details: "",
     /** Dias e horários de atendimento. */
     hours: "",
     /** URL de incorporação do Google Maps (Compartilhar → Incorporar mapa → src). */
-    mapEmbedUrl: "",
+    mapEmbedUrl:
+      "https://maps.google.com/maps?q=Rua%20Dr.%20Constantino%20Paleta%2C%20171%2C%20Centro%2C%20Juiz%20de%20Fora%20-%20MG%2C%2036015-450&z=17&output=embed",
   },
 
   sessions: {
