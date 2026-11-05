@@ -17,7 +17,7 @@ export function Logo({ compact = false }: { compact?: boolean }) {
         PR
       </span>
       <span aria-hidden className="h-9 w-px bg-sand/60 sm:h-10" />
-      <span className="flex flex-col leading-none">
+      <span className="flex flex-col leading-none whitespace-nowrap">
         <span className="font-display text-[1.05rem] font-medium tracking-[0.06em] text-sand sm:text-[1.3rem]">
           PABLO RIBEIRO
         </span>
