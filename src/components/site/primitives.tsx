@@ -135,7 +135,7 @@ export function NumberedItem({
   tone = "default",
 }: {
   index: number;
-  title: string;
+  title: ReactNode;
   children: ReactNode;
   tone?: "default" | "inverse";
 }) {
