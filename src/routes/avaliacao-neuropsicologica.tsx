@@ -1,10 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { site, hasText } from "@/config/site";
+import { BOOKING_MESSAGES } from "@/lib/contact";
 import { pageHead } from "@/lib/seo";
 import { BookingButton } from "@/components/site/booking";
 import { Reveal } from "@/components/site/Reveal";
-import { PageHero, PendingField, SectionHeading } from "@/components/site/primitives";
+import { PageHero, SectionHeading } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/sections";
 
 export const Route = createFileRoute("/avaliacao-neuropsicologica")({
@@ -18,13 +18,19 @@ export const Route = createFileRoute("/avaliacao-neuropsicologica")({
   component: NeuroPage,
 });
 
-const FUNCTIONS = ["Atenção", "Memória", "Linguagem", "Funções executivas", "Percepção", "Aspectos emocionais e comportamentais"];
+const FUNCTIONS = [
+  ["Atenção", "Capacidade de selecionar, manter e alternar o foco."],
+  ["Memória", "Como as informações são registradas, armazenadas e recuperadas."],
+  ["Linguagem", "Compreensão e expressão, oral e escrita."],
+  ["Funções executivas", "Planejamento, organização, flexibilidade e controle de impulsos."],
+  ["Aspectos emocionais e comportamentais", "Como emoções e comportamentos se relacionam com o funcionamento cognitivo."],
+] as const;
 
 const STEPS = [
   ["Entrevista inicial", "Conversa para compreender a demanda, a história de vida, o contexto escolar, profissional ou familiar e o motivo do encaminhamento, quando houver."],
   ["Sessões de avaliação", "Aplicação de instrumentos e tarefas selecionados de acordo com cada caso, em um ambiente tranquilo e respeitando o ritmo da pessoa avaliada."],
   ["Análise dos resultados", "Integração das informações obtidas nas sessões, nas entrevistas e em eventuais documentos e relatos complementares."],
-  ["Devolutiva", "Encontro para apresentar e explicar os resultados de forma clara, com a entrega de um documento escrito e as orientações pertinentes."],
+  ["Devolutiva", "Encontro para apresentar e explicar os resultados de forma clara, esclarecer dúvidas e discutir as orientações pertinentes."],
 ];
 
 function NeuroPage() {
@@ -39,7 +45,7 @@ function NeuroPage() {
         }
         intro="Um processo cuidadoso de investigação do funcionamento cognitivo, emocional e comportamental, que ajuda a compreender potencialidades e dificuldades de cada pessoa."
       >
-        <BookingButton message="Olá, Pablo! Gostaria de informações sobre a Avaliação Neuropsicológica.">
+        <BookingButton message={BOOKING_MESSAGES.avaliacao}>
           Solicitar informações
         </BookingButton>
       </PageHero>
@@ -54,13 +60,15 @@ function NeuroPage() {
               entrevistas, observação e instrumentos específicos, busca-se compreender o
               funcionamento da pessoa de forma ampla.
             </p>
-            <ul className="mt-10 flex flex-wrap gap-2.5">
-              {FUNCTIONS.map((f) => (
-                <li key={f} className="rounded-full border border-navy/15 bg-paper px-4 py-2 text-sm text-navy">
-                  {f}
-                </li>
+            <p className="mt-8 eyebrow text-sage">Funções que podem ser investigadas</p>
+            <dl className="mt-5 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+              {FUNCTIONS.map(([f, d]) => (
+                <div key={f} className="border-t border-navy/15 pt-4">
+                  <dt className="font-display text-lg text-navy">{f}</dt>
+                  <dd className="mt-1 text-[0.95rem] leading-relaxed text-muted-foreground">{d}</dd>
+                </div>
               ))}
-            </ul>
+            </dl>
           </Reveal>
         </div>
       </section>
@@ -107,8 +115,8 @@ function NeuroPage() {
       </section>
 
       <section className="bg-navy py-20 text-ivory sm:py-28">
-        <div className="container-site grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-6">
+        <div className="container-site grid gap-12 lg:grid-cols-12 lg:items-end">
+          <div className="lg:col-span-7">
             <SectionHeading
               tone="inverse"
               eyebrow="Devolutiva"
@@ -117,36 +125,19 @@ function NeuroPage() {
             <Reveal delay={100} className="mt-8 space-y-5 leading-relaxed text-ivory/75">
               <p>
                 Ao final do processo, é realizada uma sessão de devolutiva, em que os resultados são
-                apresentados em linguagem acessível. É o momento de esclarecer dúvidas e discutir
-                orientações e possíveis encaminhamentos.
+                apresentados em linguagem acessível. É o momento de esclarecer dúvidas e conversar
+                sobre orientações e possíveis encaminhamentos.
               </p>
               <p>
-                O documento resultante segue as normas do Conselho Federal de Psicologia para a
-                elaboração de documentos psicológicos.
+                Como cada avaliação é planejada de forma individual, informações sobre o número de
+                sessões e prazos são passadas no primeiro contato.
               </p>
             </Reveal>
           </div>
-          <Reveal delay={150} className="space-y-4 lg:col-span-6">
-            <p className="eyebrow text-sand">Informações do processo</p>
-            {[
-              { label: "Público atendido", value: site.neuro.audience },
-              { label: "Duração e número de sessões", value: site.neuro.duration },
-              { label: "Instrumentos e protocolos", value: site.neuro.instruments },
-            ].map((f) =>
-              hasText(f.value) ? (
-                <div key={f.label} className="border-t border-ivory/15 pt-4">
-                  <p className="text-sm text-ivory/55">{f.label}</p>
-                  <p className="mt-1 text-ivory">{f.value}</p>
-                </div>
-              ) : (
-                <PendingField
-                  key={f.label}
-                  tone="inverse"
-                  label={f.label}
-                  hint="Varia conforme cada caso. Entre em contato para receber orientações."
-                />
-              ),
-            )}
+          <Reveal delay={150} className="lg:col-span-5 lg:justify-self-end">
+            <BookingButton message={BOOKING_MESSAGES.avaliacao} variant="light">
+              Solicitar informações
+            </BookingButton>
           </Reveal>
         </div>
       </section>
