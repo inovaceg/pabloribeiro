@@ -29,7 +29,7 @@ export const FAQ: FaqItem[] = [
       hasText(site.sessions.pricing) ? `${site.sessions.pricing}.` : "",
       hasText(site.sessions.insurance)
         ? `${site.sessions.insurance}.`
-        : "Valores, formas de pagamento e informações sobre convênios são passados diretamente pelo WhatsApp, no momento do agendamento.",
+        : "Os detalhes sobre valores, formas de pagamento e convênios são informados diretamente pelo WhatsApp, no momento do agendamento.",
     ]
       .filter(Boolean)
       .join(" "),
