@@ -34,4 +34,5 @@ use the editor.
 - All editable professional info (contacts, address, bio, session details) lives in `src/config/site.ts`; empty fields are hidden from the public site (no placeholder notices). Why: the owner updates content without touching pages, and nothing unconfirmed is ever shown or invented.
 - Scheduling links go through `getBookingChannel` in `src/lib/contact.ts` (WhatsApp when configured, Instagram Direct fallback) with page-specific `BOOKING_MESSAGES`. Why: one place controls every booking button.
 - The contact form stores no data: it builds the message client-side and hands it to WhatsApp/Instagram. Why: institutional site, no patient data storage (LGPD / ethics).
+- Educational articles live as data in `src/content/articles.ts`, rendered by `/artigos` and `/artigos/$slug`; every slug must also be listed in `public/sitemap.xml` (enforced by `articles.test.ts`). Why: adding a text never needs a new page file, and Google always finds it.
 - Per-route SEO uses `pageHead()` from `src/lib/seo.ts`. Why: consistent title/description/OG/canonical on every page.
