@@ -24,4 +24,7 @@
 ## Área administrativa de artigos
 - [x] Login por e-mail/senha (sem cadastro público), recuperação de senha
 - [x] Lista de artigos, criar/editar, capa, rascunho/publicar, excluir
-- [ ] Cadastrar o e-mail do Pablo como administrador — aguarda o e-mail dele
+- [x] E-mail administrador autorizado (inovaceg@gmail.com)
+- [x] Painel com contagens, busca, filtro, publicar/despublicar/excluir, prévia fiel
+- [x] Primeiro acesso por link no e-mail (sem cadastro público)
+- [ ] Primeiro acesso: o dono do e-mail precisa pedir o link em /auth e criar a senha

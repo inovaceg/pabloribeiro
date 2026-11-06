@@ -31,9 +31,10 @@ function ResetPasswordPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const isRecovery = window.location.hash.includes("type=recovery");
+    const hash = window.location.hash;
+    const isRecovery = hash.includes("type=recovery") || hash.includes("type=invite");
     const { data } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY") setReady(true);
+      if (event === "PASSWORD_RECOVERY" || (event === "SIGNED_IN" && isRecovery)) setReady(true);
     });
     supabase.auth.getSession().then(({ data: s }) => {
       if (s.session && isRecovery) setReady(true);
