@@ -20,3 +20,8 @@
 - [ ] Depoimentos — não feito: CFP veda depoimentos de pacientes na divulgação
 - [ ] Calendly — aguarda decisão/conta do Pablo
 - [ ] Formação, plataforma online, convênios, abrangência online — aguardam dados do Pablo
+
+## Área administrativa de artigos
+- [x] Login por e-mail/senha (sem cadastro público), recuperação de senha
+- [x] Lista de artigos, criar/editar, capa, rascunho/publicar, excluir
+- [ ] Cadastrar o e-mail do Pablo como administrador — aguarda o e-mail dele
