@@ -16,9 +16,11 @@ import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as PerguntasFrequentesRouteImport } from './routes/perguntas-frequentes'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as PsicoterapiaRouteImport } from './routes/psicoterapia'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as ArtigosIndexRouteImport } from './routes/artigos.index'
 import { Route as ArtigosSlugRouteImport } from './routes/artigos.$slug'
+import { Route as ApiPublicCapasSplatRouteImport } from './routes/api/public/capas.$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -56,6 +58,11 @@ const PsicoterapiaRoute = PsicoterapiaRouteImport.update({
   path: '/psicoterapia',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',
   path: '/sobre',
@@ -71,6 +78,11 @@ const ArtigosSlugRoute = ArtigosSlugRouteImport.update({
   path: '/artigos/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicCapasSplatRoute = ApiPublicCapasSplatRouteImport.update({
+  id: '/api/public/capas/$',
+  path: '/api/public/capas/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -80,9 +92,11 @@ export interface FileRoutesByFullPath {
   '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/psicoterapia': typeof PsicoterapiaRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/artigos/$slug': typeof ArtigosSlugRoute
   '/artigos/': typeof ArtigosIndexRoute
+  '/api/public/capas/$': typeof ApiPublicCapasSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -92,9 +106,11 @@ export interface FileRoutesByTo {
   '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/psicoterapia': typeof PsicoterapiaRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/artigos/$slug': typeof ArtigosSlugRoute
   '/artigos': typeof ArtigosIndexRoute
+  '/api/public/capas/$': typeof ApiPublicCapasSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -105,9 +121,11 @@ export interface FileRoutesById {
   '/perguntas-frequentes': typeof PerguntasFrequentesRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/psicoterapia': typeof PsicoterapiaRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/artigos/$slug': typeof ArtigosSlugRoute
   '/artigos/': typeof ArtigosIndexRoute
+  '/api/public/capas/$': typeof ApiPublicCapasSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -119,9 +137,11 @@ export interface FileRouteTypes {
     | '/perguntas-frequentes'
     | '/politica-de-privacidade'
     | '/psicoterapia'
+    | '/sitemap.xml'
     | '/sobre'
     | '/artigos/$slug'
     | '/artigos/'
+    | '/api/public/capas/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -131,9 +151,11 @@ export interface FileRouteTypes {
     | '/perguntas-frequentes'
     | '/politica-de-privacidade'
     | '/psicoterapia'
+    | '/sitemap.xml'
     | '/sobre'
     | '/artigos/$slug'
     | '/artigos'
+    | '/api/public/capas/$'
   id:
     | '__root__'
     | '/'
@@ -143,9 +165,11 @@ export interface FileRouteTypes {
     | '/perguntas-frequentes'
     | '/politica-de-privacidade'
     | '/psicoterapia'
+    | '/sitemap.xml'
     | '/sobre'
     | '/artigos/$slug'
     | '/artigos/'
+    | '/api/public/capas/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -156,9 +180,11 @@ export interface RootRouteChildren {
   PerguntasFrequentesRoute: typeof PerguntasFrequentesRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   PsicoterapiaRoute: typeof PsicoterapiaRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
   ArtigosSlugRoute: typeof ArtigosSlugRoute
   ArtigosIndexRoute: typeof ArtigosIndexRoute
+  ApiPublicCapasSplatRoute: typeof ApiPublicCapasSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PsicoterapiaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sobre': {
       id: '/sobre'
       path: '/sobre'
@@ -233,6 +266,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArtigosSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/capas/$': {
+      id: '/api/public/capas/$'
+      path: '/api/public/capas/$'
+      fullPath: '/api/public/capas/$'
+      preLoaderRoute: typeof ApiPublicCapasSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -244,9 +284,11 @@ const rootRouteChildren: RootRouteChildren = {
   PerguntasFrequentesRoute: PerguntasFrequentesRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   PsicoterapiaRoute: PsicoterapiaRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,
   ArtigosSlugRoute: ArtigosSlugRoute,
   ArtigosIndexRoute: ArtigosIndexRoute,
+  ApiPublicCapasSplatRoute: ApiPublicCapasSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

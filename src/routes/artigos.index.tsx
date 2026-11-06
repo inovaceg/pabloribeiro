@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
-import { ARTICLES } from "@/content/articles";
+import { publishedArticlesQuery } from "@/lib/articles.queries";
 import { pageHead } from "@/lib/seo";
 import { ArticleCard } from "@/components/site/articles";
 import { PageHero } from "@/components/site/primitives";
 import { CtaBand } from "@/components/site/sections";
 
 export const Route = createFileRoute("/artigos/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(publishedArticlesQuery()),
   head: () =>
     pageHead({
       title: "Artigos sobre saúde mental, TCC e Avaliação Neuropsicológica | Pablo Ribeiro",
@@ -18,6 +20,7 @@ export const Route = createFileRoute("/artigos/")({
 });
 
 function ArticlesPage() {
+  const { data: articles } = useSuspenseQuery(publishedArticlesQuery());
   return (
     <>
       <PageHero
@@ -30,10 +33,16 @@ function ArticlesPage() {
         intro="Textos curtos e acessíveis sobre saúde mental, psicoterapia e avaliação neuropsicológica. São informativos e não substituem o acompanhamento profissional."
       />
       <section className="py-16 sm:py-24">
-        <div className="container-site grid gap-5 md:grid-cols-2">
-          {ARTICLES.map((a, i) => (
-            <ArticleCard key={a.slug} article={a} index={i} />
-          ))}
+        <div className="container-site">
+          {articles.length === 0 ? (
+            <p className="text-center text-muted-foreground">Novos artigos em breve.</p>
+          ) : (
+            <div className="grid gap-5 md:grid-cols-2">
+              {articles.map((a, i) => (
+                <ArticleCard key={a.slug} article={a} index={i} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
       <CtaBand />
