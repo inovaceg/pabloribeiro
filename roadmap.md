@@ -28,3 +28,10 @@
 - [x] Painel com contagens, busca, filtro, publicar/despublicar/excluir, prévia fiel
 - [x] Primeiro acesso por link no e-mail (sem cadastro público)
 - [ ] Primeiro acesso: o dono do e-mail precisa pedir o link em /auth e criar a senha
+
+## Redesenho do painel administrativo (pedido do usuário)
+- [x] Conferir login e permissão de inovaceg@gmail.com (entra em /admin normalmente)
+- [ ] Barra lateral azul-marinho, barra superior com busca e menu da conta, painel inicial com cartões e artigos recentes
+- [ ] Página Artigos com filtro por categoria e ordenação por data
+- [ ] Editor no novo visual (mesmas funções)
+- [ ] Teste completo: criar, publicar e excluir um artigo de teste com a conta de administrador
