@@ -8,7 +8,9 @@ import { pageHead } from "@/lib/seo";
 import { BookingButton } from "@/components/site/booking";
 import { Reveal } from "@/components/site/Reveal";
 import { Eyebrow, NumberedItem, SectionHeading } from "@/components/site/primitives";
-import { InstagramSection } from "@/components/site/sections";
+import { EthicsSection, FirstConversation, InstagramSection } from "@/components/site/sections";
+import { ArticleCard } from "@/components/site/articles";
+import { ARTICLES } from "@/content/articles";
 
 const HERO_IMAGE = `${SITE_URL}${retratoConsultorio.url}`;
 
@@ -24,7 +26,7 @@ const jsonLd = {
   areaServed: [{ "@type": "City", name: "Juiz de Fora" }, { "@type": "Country", name: "Brasil" }],
   address: { "@type": "PostalAddress", streetAddress: "Rua Dr. Constantino Paleta, 171 – Sala 201", postalCode: "36015-450", addressLocality: "Juiz de Fora", addressRegion: "MG", addressCountry: "BR" },
   knowsAbout: ["Psicoterapia", "Terapia Cognitivo-Comportamental", "Avaliação Neuropsicológica"],
-  sameAs: [instagramUrl],
+  sameAs: [instagramUrl, site.contact.googleBusinessUrl].filter(Boolean),
 };
 
 export const Route = createFileRoute("/")({
@@ -50,6 +52,8 @@ function HomePage() {
       <ListeningRow />
       <WhyTherapy />
       <HowToStart />
+      <EthicsSection />
+      <ArticlesTeaser />
       <InstagramSection />
     </>
   );
@@ -303,11 +307,32 @@ function HowToStart() {
             </Reveal>
           ))}
         </ol>
-        <Reveal className="mt-14 flex justify-center">
-          <BookingButton variant="whatsapp" message={BOOKING_MESSAGES.agendamento} className="py-4 sm:px-8">
-            Agendar pelo WhatsApp
-          </BookingButton>
+        <Reveal className="mt-16">
+          <FirstConversation />
         </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function ArticlesTeaser() {
+  return (
+    <section className="py-20 sm:py-28">
+      <div className="container-site">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+          <SectionHeading eyebrow="Artigos" title="Informação para compreender e cuidar." />
+          <Reveal>
+            <Link to="/artigos" className="group inline-flex items-center gap-2 font-semibold text-navy">
+              Ver todos os artigos
+              <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
+            </Link>
+          </Reveal>
+        </div>
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {ARTICLES.slice(0, 3).map((a, i) => (
+            <ArticleCard key={a.slug} article={a} index={i} />
+          ))}
+        </div>
       </div>
     </section>
   );

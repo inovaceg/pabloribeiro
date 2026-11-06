@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, MapPin, MonitorSmartphone, ShieldCheck } from "lucide-react";
+import { Mail, MapPin, MonitorSmartphone, ShieldCheck, Star } from "lucide-react";
 
 import { site, instagramUrl, hasText } from "@/config/site";
 import { BOOKING_MESSAGES } from "@/lib/contact";
@@ -82,6 +82,15 @@ function ContactPage() {
                   </p>
                 </div>
               </div>
+              {hasText(site.contact.googleBusinessUrl) && (
+                <a href={site.contact.googleBusinessUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 p-6 transition-colors hover:bg-sand-soft/40">
+                  <Star className="size-5 text-sage" />
+                  <div>
+                    <p className="text-sm text-muted-foreground">Google</p>
+                    <p className="text-navy">Ver perfil no Google</p>
+                  </div>
+                </a>
+              )}
               <div className="flex items-center gap-4 p-6">
                 <MonitorSmartphone className="size-5 text-sage" />
                 <div>

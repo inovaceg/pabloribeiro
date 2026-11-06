@@ -24,6 +24,17 @@ export const FAQ: FaqItem[] = [
     a: duration,
   },
   {
+    q: "Quais são os valores? Atende convênio?",
+    a: [
+      hasText(site.sessions.pricing) ? `${site.sessions.pricing}.` : "",
+      hasText(site.sessions.insurance)
+        ? `${site.sessions.insurance}.`
+        : "Os detalhes sobre valores, formas de pagamento e convênios são informados diretamente pelo WhatsApp, no momento do agendamento.",
+    ]
+      .filter(Boolean)
+      .join(" "),
+  },
+  {
     q: "Como funciona a Terapia Cognitivo-Comportamental?",
     a: "A TCC é uma abordagem que investiga a relação entre pensamentos, emoções e comportamentos. Em conjunto, terapeuta e paciente identificam padrões que geram sofrimento e constroem estratégias práticas para lidar com eles. É uma abordagem colaborativa, estruturada e com objetivos definidos ao longo do processo.",
   },

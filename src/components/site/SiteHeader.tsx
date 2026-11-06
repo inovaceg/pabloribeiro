@@ -57,13 +57,12 @@ export function SiteHeader() {
         <Logo />
 
         <nav aria-label="Navegação principal" className="hidden xl:block">
-          <ul className="flex items-center gap-7">
-            {NAV_ITEMS.map((item) => (
+          <ul className="flex items-center gap-5 2xl:gap-7">
+            {NAV_ITEMS.filter((item) => item.to !== "/").map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
-                  activeOptions={{ exact: item.to === "/" }}
-                  className="relative py-2 text-[0.88rem] text-ivory/85 transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-full after:bg-sand after:transition-transform after:duration-500 hover:text-ivory hover:after:scale-x-100 data-[status=active]:font-semibold data-[status=active]:text-ivory data-[status=active]:after:scale-x-100"
+                  className="relative py-2 whitespace-nowrap text-[0.88rem] text-ivory/85 transition-colors after:absolute after:inset-x-0 after:-bottom-1 after:h-[3px] after:origin-left after:scale-x-0 after:rounded-full after:bg-sand after:transition-transform after:duration-500 hover:text-ivory hover:after:scale-x-100 data-[status=active]:font-semibold data-[status=active]:text-ivory data-[status=active]:after:scale-x-100"
                 >
                   {item.label}
                 </Link>
@@ -101,7 +100,7 @@ export function SiteHeader() {
               </div>
               <nav aria-label="Menu móvel" className="mt-10 flex-1 overflow-y-auto px-8">
                 <ul>
-                  {[...NAV_ITEMS, { to: "/perguntas-frequentes" as const, label: "Perguntas frequentes" }].map(
+                  {NAV_ITEMS.map(
                     (item, i) => (
                       <li key={item.to}>
                         <Link

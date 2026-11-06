@@ -13,6 +13,8 @@ const PATHS = [
   "/perguntas-frequentes",
   "/contato",
   "/politica-de-privacidade",
+  "/artigos",
+  "/artigos/quando-procurar-um-psicologo",
 ];
 
 // Match routes without running loaders or rendering: loaders may need a server or

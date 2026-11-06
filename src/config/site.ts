@@ -22,6 +22,8 @@ export const site = {
     whatsappDisplay: "(32) 98841-1284",
     email: "",
     instagramHandle: "psico_pabloribeiro",
+    /** Link do perfil no Google Meu Negócio (Google Maps). Ex.: "https://g.page/..." */
+    googleBusinessUrl: "",
   },
 
   office: {
@@ -43,6 +45,12 @@ export const site = {
     duration: "",
     /** Plataforma usada nas sessões online. Ex.: "Google Meet" */
     onlinePlatform: "",
+    /** Como os valores aparecem no site. Ex.: "Valores sob consulta" ou "R$ 000 por sessão". */
+    pricing: "Valores sob consulta",
+    /** Convênios aceitos. Ex.: "Atendimento particular, com recibo para reembolso". Vazio = oculto. */
+    insurance: "",
+    /** Abrangência do atendimento online. Ex.: "Todo o Brasil". Vazio = oculto. */
+    onlineCoverage: "",
   },
 
   about: {
