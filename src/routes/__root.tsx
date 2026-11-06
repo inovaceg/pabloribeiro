@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
   type ErrorComponentProps,
@@ -16,6 +17,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { FloatingBooking } from "@/components/site/booking";
+import { supabase } from "@/integrations/supabase/client";
 
 function NotFoundComponent() {
   return (
@@ -125,6 +127,18 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  // The admin area has its own compact chrome (no public header, footer or floating WhatsApp button).
+  const isAdmin = useRouterState({ select: (s) => s.location.pathname.startsWith("/admin") });
+
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
+      router.invalidate();
+      if (event !== "SIGNED_OUT") queryClient.invalidateQueries({ queryKey: ["admin-articles"] });
+    });
+    return () => data.subscription.unsubscribe();
+  }, [router, queryClient]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -134,13 +148,13 @@ function RootComponent() {
       >
         Pular para o conteúdo
       </a>
-      <SiteHeader />
+      {!isAdmin && <SiteHeader />}
       <main id="conteudo">
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </main>
-      <SiteFooter />
-      <FloatingBooking />
+      {!isAdmin && <SiteFooter />}
+      {!isAdmin && <FloatingBooking />}
       <Toaster position="top-center" />
     </QueryClientProvider>
   );
