@@ -11,6 +11,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { Eyebrow, NumberedItem, SectionHeading } from "@/components/site/primitives";
 import { EthicsSection, FirstConversation, InstagramSection } from "@/components/site/sections";
 import { ArticleCard } from "@/components/site/articles";
+import { JsonLd } from "@/components/site/JsonLd";
 import { publishedArticlesQuery } from "@/lib/articles.queries";
 
 const HERO_IMAGE = `${SITE_URL}${retratoConsultorio.url}`;
@@ -32,15 +33,12 @@ const jsonLd = {
 
 export const Route = createFileRoute("/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(publishedArticlesQuery()),
-  head: () => ({
-    ...pageHead({
-      title: "Pablo Ribeiro | Psicólogo em Juiz de Fora – MG · Psicoterapia e Avaliação Neuropsicológica",
-      description:
-        "Psicólogo em Juiz de Fora – MG (CRP 04/53880). Psicoterapia em Terapia Cognitivo-Comportamental e Avaliação Neuropsicológica, com atendimento presencial e online para todas as idades.",
-      path: "/",
-      image: HERO_IMAGE,
-    }),
-    scripts: [{ type: "application/ld+json", children: JSON.stringify(jsonLd) }],
+  head: () => pageHead({
+    title: "Pablo Ribeiro | Psicólogo em Juiz de Fora – MG · Psicoterapia e Avaliação Neuropsicológica",
+    description:
+      "Psicólogo em Juiz de Fora – MG (CRP 04/53880). Psicoterapia em Terapia Cognitivo-Comportamental e Avaliação Neuropsicológica, com atendimento presencial e online para todas as idades.",
+    path: "/",
+    image: HERO_IMAGE,
   }),
   component: HomePage,
 });
@@ -48,6 +46,7 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <>
+      <JsonLd data={jsonLd} />
       <Hero />
       <HighlightsStrip />
       <HowICanHelp />

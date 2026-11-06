@@ -6,6 +6,17 @@ import { BookingButton } from "@/components/site/booking";
 import { FaqList } from "@/components/site/FaqList";
 import { Reveal } from "@/components/site/Reveal";
 import { PageHero } from "@/components/site/primitives";
+import { JsonLd } from "@/components/site/JsonLd";
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQ.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 export const Route = createFileRoute("/perguntas-frequentes")({
   head: () => ({
@@ -15,20 +26,6 @@ export const Route = createFileRoute("/perguntas-frequentes")({
         "Dúvidas sobre a primeira consulta, agendamento, atendimento online, Terapia Cognitivo-Comportamental e Avaliação Neuropsicológica.",
       path: "/perguntas-frequentes",
     }),
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: FAQ.map((f) => ({
-            "@type": "Question",
-            name: f.q,
-            acceptedAnswer: { "@type": "Answer", text: f.a },
-          })),
-        }),
-      },
-    ],
   }),
   component: FaqPage,
 });
@@ -36,6 +33,7 @@ export const Route = createFileRoute("/perguntas-frequentes")({
 function FaqPage() {
   return (
     <>
+      <JsonLd data={faqJsonLd} />
       <PageHero
         eyebrow="Perguntas frequentes"
         title={
