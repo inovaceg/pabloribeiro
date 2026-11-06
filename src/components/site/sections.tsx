@@ -93,6 +93,9 @@ export function FirstConversation({ className }: { className?: string }) {
             </div>
           ))}
         </dl>
+        <p className="text-sm leading-relaxed text-ivory/70">
+          O agendamento é feito diretamente comigo pelo WhatsApp, com retorno pessoal o mais breve possível.
+        </p>
         <BookingButton variant="whatsapp" message={BOOKING_MESSAGES.agendamento} className="w-full py-4">
           Agendar a primeira conversa
         </BookingButton>
