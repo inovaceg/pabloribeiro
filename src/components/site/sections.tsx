@@ -3,9 +3,9 @@ import { ArrowUpRight, BadgeCheck, Check, Lock, MonitorSmartphone, ShieldCheck }
 import { site, instagramUrl, hasText } from "@/config/site";
 import { BOOKING_MESSAGES } from "@/lib/contact";
 import { cn } from "@/lib/utils";
-import instaCrescimento from "@/assets/instagram_post_crescimento.jpg.asset.json";
-import instaTraumas from "@/assets/instagram_post_traumas.jpg.asset.json";
-import instaSentir from "@/assets/instagram_post_sentir.jpg.asset.json";
+import instaCrescimento from "@/assets/instagram-psicoterapia.jpg";
+import instaTraumas from "@/assets/instagram-traumas.jpg";
+import instaSentir from "@/assets/instagram-sentimentos.jpg";
 import { BookingButton, buttonClass } from "./booking";
 import { InstagramIcon } from "./icons";
 import { Reveal } from "./Reveal";
@@ -164,9 +164,9 @@ export function EthicsSection() {
 }
 
 const POSTS = [
-  { img: instaCrescimento.url, alt: "Post: Psicoterapia não é só para crises, é também para crescimento." },
-  { img: instaSentir.url, alt: "Post: Entender o que você sente é o primeiro passo para mudar o que você vive." },
-  { img: instaTraumas.url, alt: "Post: Traumas invisíveis — as dores que você aprendeu a esconder." },
+  { img: instaCrescimento, alt: "Post: Psicoterapia não é só para crises, é também para crescimento." },
+  { img: instaSentir, alt: "Post: Entender o que você sente é o primeiro passo para mudar o que você vive." },
+  { img: instaTraumas, alt: "Post: Traumas invisíveis — as dores que você aprendeu a esconder." },
 ];
 
 export function InstagramSection() {
