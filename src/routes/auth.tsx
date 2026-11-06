@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Loader2, LockKeyhole } from "lucide-react";
 import { toast } from "sonner";
@@ -43,11 +43,11 @@ function AuthPage() {
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: safeRedirect(redirect), replace: true });
+      if (data.user) navigate({ href: safeRedirect(redirect), replace: true });
     });
   }, [navigate, redirect]);
 
-  const onLogin = async (e: React.FormEvent) => {
+  const onLogin = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     const parsed = z.object({ email: z.string().trim().email(), password: z.string().min(1) }).safeParse({ email, password });
@@ -63,10 +63,10 @@ function AuthPage() {
       return;
     }
     toast.success("Bem-vindo!");
-    navigate({ to: safeRedirect(redirect), replace: true });
+    navigate({ href: safeRedirect(redirect), replace: true });
   };
 
-  const onForgot = async (e: React.FormEvent) => {
+  const onForgot = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     if (!z.string().trim().email().safeParse(email).success) {
