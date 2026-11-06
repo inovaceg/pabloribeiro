@@ -251,6 +251,7 @@ export function ArticleEditor({ article }: { article?: AdminArticle }) {
           ? "Artigo despublicado — voltou para rascunho."
           : "Rascunho salvo.";
     toast.success(message);
+    setCoverPath(newCoverPath);
     setCoverFile(null);
     setSaving(null);
     if (!article) {
