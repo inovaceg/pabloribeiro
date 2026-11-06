@@ -1,11 +1,13 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Loader2, LockKeyhole } from "lucide-react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { ArrowLeft, Loader2, LockKeyhole } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
 
 import { supabase } from "@/integrations/supabase/client";
 import { buttonClass } from "@/components/site/booking";
+import { requestAdminAccessLink } from "@/lib/admin-access.functions";
 
 const searchSchema = z.object({ redirect: z.string().optional() });
 
@@ -34,6 +36,7 @@ const fieldClass =
 function AuthPage() {
   const { redirect } = Route.useSearch();
   const navigate = useNavigate();
+  const requestAccess = useServerFn(requestAdminAccessLink);
   const [mode, setMode] = useState<"login" | "forgot">("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -74,9 +77,14 @@ function AuthPage() {
       return;
     }
     setBusy(true);
-    await supabase.auth.resetPasswordForEmail(email.trim(), {
-      redirectTo: `${window.location.origin}/reset-password`,
-    });
+    try {
+      await requestAccess({ data: { email: email.trim(), origin: window.location.origin } });
+    } catch (err) {
+      console.error(err);
+      setBusy(false);
+      setError("Não foi possível enviar o link agora. Tente novamente em alguns minutos.");
+      return;
+    }
     setBusy(false);
     setSent(true);
   };
@@ -87,16 +95,16 @@ function AuthPage() {
         <span className="flex size-12 items-center justify-center rounded-xl bg-navy text-sand">
           <LockKeyhole className="size-5" aria-hidden />
         </span>
-        <h1 className="mt-6 text-3xl text-navy">{mode === "login" ? "Área administrativa" : "Recuperar senha"}</h1>
+        <h1 className="mt-6 text-3xl text-navy">{mode === "login" ? "Área administrativa" : "Primeiro acesso ou nova senha"}</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           {mode === "login"
             ? "Acesso restrito para gerenciar os artigos do site."
-            : "Enviaremos um link para você criar uma nova senha."}
+            : "Informe o e-mail autorizado. Enviaremos um link para você criar sua senha."}
         </p>
 
         {mode === "forgot" && sent ? (
           <p role="status" className="mt-8 rounded-lg bg-sage-soft/70 p-4 text-sm text-navy">
-            Se este e-mail tiver acesso, você receberá um link para criar uma nova senha. Confira também a caixa de spam.
+            Se este e-mail tiver acesso à área administrativa, você receberá em instantes um link para criar sua senha. Confira também a caixa de spam.
           </p>
         ) : (
           <form onSubmit={mode === "login" ? onLogin : onForgot} className="mt-8 space-y-5" noValidate>
@@ -127,8 +135,11 @@ function AuthPage() {
           }}
           className="mt-6 text-sm text-navy underline underline-offset-4"
         >
-          {mode === "login" ? "Esqueci minha senha" : "Voltar para o login"}
+          {mode === "login" ? "Primeiro acesso ou esqueci minha senha" : "Voltar para o login"}
         </button>
+        <Link to="/" className="mt-8 flex items-center gap-1.5 border-t border-border pt-5 text-sm text-muted-foreground hover:text-navy">
+          <ArrowLeft className="size-4" /> Voltar ao site
+        </Link>
       </div>
     </section>
   );
