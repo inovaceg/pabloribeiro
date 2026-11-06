@@ -158,11 +158,11 @@ function AdminDashboard() {
         </Link>
       </div>
 
-      <dl className="mt-8 grid grid-cols-3 gap-3 sm:gap-5">
+      <div role="group" aria-label="Resumo dos artigos" className="mt-8 grid grid-cols-3 gap-3 sm:gap-5">
         <Stat label="Publicados" value={published} loading={isLoading} tone="dark" onClick={() => setSearch({ status: "published" })} active={status === "published"} />
         <Stat label="Rascunhos" value={drafts} loading={isLoading} onClick={() => setSearch({ status: "draft" })} active={status === "draft"} />
         <Stat label="Total" value={all.length} loading={isLoading} onClick={() => setSearch({ status: "all" })} active={status === "all"} />
-      </dl>
+      </div>
 
       <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative sm:w-80">
@@ -394,12 +394,12 @@ function Stat({
       )}
     >
       {dark && <span aria-hidden className="grain-layer absolute inset-0 -z-10" />}
-      <dt className={cn("text-xs font-semibold tracking-wide uppercase sm:text-sm sm:normal-case sm:tracking-normal", dark ? "text-sand" : "text-muted-foreground")}>
+      <span className={cn("block text-xs font-semibold tracking-wide uppercase sm:text-sm sm:normal-case sm:tracking-normal", dark ? "text-sand" : "text-muted-foreground")}>
         {label}
-      </dt>
-      <dd className="mt-2 font-display text-3xl leading-none sm:text-5xl">
-        {loading ? <span className="inline-block h-8 w-10 animate-pulse rounded bg-current/15 align-middle" /> : value}
-      </dd>
+      </span>
+      <span className="mt-2 block font-display text-3xl leading-none sm:text-5xl">
+        {loading ? <span className="inline-block h-8 w-10 animate-pulse rounded bg-sand/30 align-middle" /> : value}
+      </span>
     </button>
   );
 }
