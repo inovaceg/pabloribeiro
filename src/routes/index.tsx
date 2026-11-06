@@ -3,6 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, ClipboardList, MessageSquareMore, MessagesSquare, MonitorSmartphone } from "lucide-react";
 
 import retratoConsultorio from "@/assets/pablo_retrato_consultorio.jpg.asset.json";
+import retratoBanner from "@/assets/retrato-banner.png";
 import { site, instagramUrl, SITE_URL } from "@/config/site";
 import { BOOKING_MESSAGES } from "@/lib/contact";
 import { pageHead } from "@/lib/seo";
@@ -66,8 +67,8 @@ function Hero() {
       {/* Photo: stacked on mobile, full-bleed background on desktop */}
       <div className="relative lg:absolute lg:inset-0 lg:top-20">
         <img
-          src={retratoConsultorio.url}
-          alt="Pablo Ribeiro, psicólogo, em seu consultório"
+          src={retratoBanner}
+          alt="Pablo Ribeiro, psicólogo, em retrato editorial"
           width={1774}
           height={887}
           fetchPriority="high"
