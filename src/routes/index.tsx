@@ -4,6 +4,7 @@ import { ArrowRight, ClipboardList, MessageSquareMore, MessagesSquare, MonitorSm
 
 import retratoConsultorio from "@/assets/pablo_retrato_consultorio.jpg.asset.json";
 import retratoBanner from "@/assets/retrato-banner.png";
+import sessaoTerapia from "@/assets/sessao-terapia.png";
 import { site, instagramUrl, SITE_URL } from "@/config/site";
 import { BOOKING_MESSAGES } from "@/lib/contact";
 import { pageHead } from "@/lib/seo";
@@ -219,12 +220,12 @@ function ListeningRow() {
         <Reveal delay={100} className="lg:col-span-4">
           <div className="h-full overflow-hidden rounded-2xl">
             <img
-              src={retratoConsultorio.url}
-              alt="Retrato de Pablo Ribeiro no consultório"
-              width={1774}
-              height={887}
+              src={sessaoTerapia}
+              alt="Pablo Ribeiro em uma sessão de terapia em ambiente acolhedor"
+              width={1536}
+              height={1024}
               loading="lazy"
-              className="aspect-[4/5] h-full w-full object-cover object-[74%_25%] md:aspect-auto md:min-h-80"
+              className="aspect-[4/5] h-full w-full object-cover object-center md:aspect-auto md:min-h-80"
             />
           </div>
         </Reveal>
