@@ -1,4 +1,4 @@
-import { useRef, useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent, type ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQueryClient } from "@tanstack/react-query";
 import { ArrowLeft, Eye, Heading2, ImagePlus, List, Loader2, Pencil, Trash2, X } from "lucide-react";
@@ -379,7 +379,7 @@ function Field({
   hint?: string;
   error?: string | undefined;
   htmlFor: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <div>

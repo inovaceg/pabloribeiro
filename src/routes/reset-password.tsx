@@ -41,7 +41,7 @@ function ResetPasswordPage() {
     return () => data.subscription.unsubscribe();
   }, []);
 
-  const onSubmit = async (e: React.FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
     if (password.length < 8) return setError("A senha precisa ter pelo menos 8 caracteres.");
