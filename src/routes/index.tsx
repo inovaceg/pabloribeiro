@@ -72,12 +72,12 @@ function Hero() {
           width={1774}
           height={887}
           fetchPriority="high"
-          className="h-[19rem] w-full object-cover object-[80%_22%] sm:h-[26rem] md:h-[30rem] lg:h-full lg:object-[75%_30%]"
+          className="h-[19rem] w-full object-cover object-[74%_24%] sm:h-[26rem] md:h-[30rem] lg:h-full lg:object-[72%_38%]"
         />
         <div aria-hidden className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-ivory to-transparent lg:hidden" />
         <div
           aria-hidden
-          className="absolute inset-0 hidden bg-gradient-to-r from-ivory from-[28%] via-ivory/75 via-[46%] to-transparent to-[66%] lg:block"
+          className="absolute inset-0 hidden bg-gradient-to-r from-ivory from-[35%] via-ivory/70 via-[49%] to-transparent to-[68%] lg:block"
         />
       </div>
 
