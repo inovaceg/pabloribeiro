@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight, ClipboardList, MessageSquareMore, MessagesSquare, MonitorSmartphone } from "lucide-react";
 
 import retratoConsultorio from "@/assets/pablo_retrato_consultorio.jpg.asset.json";
@@ -10,7 +11,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { Eyebrow, NumberedItem, SectionHeading } from "@/components/site/primitives";
 import { EthicsSection, FirstConversation, InstagramSection } from "@/components/site/sections";
 import { ArticleCard } from "@/components/site/articles";
-import { ARTICLES } from "@/content/articles";
+import { publishedArticlesQuery } from "@/lib/articles.queries";
 
 const HERO_IMAGE = `${SITE_URL}${retratoConsultorio.url}`;
 
@@ -30,6 +31,7 @@ const jsonLd = {
 };
 
 export const Route = createFileRoute("/")({
+  loader: ({ context }) => context.queryClient.ensureQueryData(publishedArticlesQuery()),
   head: () => ({
     ...pageHead({
       title: "Pablo Ribeiro | Psicólogo em Juiz de Fora – MG · Psicoterapia e Avaliação Neuropsicológica",
@@ -316,6 +318,8 @@ function HowToStart() {
 }
 
 function ArticlesTeaser() {
+  const { data: articles } = useSuspenseQuery(publishedArticlesQuery());
+  if (articles.length === 0) return null;
   return (
     <section className="py-20 sm:py-28">
       <div className="container-site">
@@ -329,7 +333,7 @@ function ArticlesTeaser() {
           </Reveal>
         </div>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {ARTICLES.slice(0, 3).map((a, i) => (
+          {articles.slice(0, 3).map((a, i) => (
             <ArticleCard key={a.slug} article={a} index={i} />
           ))}
         </div>
