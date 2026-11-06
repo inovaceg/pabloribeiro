@@ -31,6 +31,7 @@ export type Database = {
           body: string
           category: string
           cover_alt: string
+          cover_path: string | null
           cover_url: string | null
           created_at: string
           description: string
@@ -45,6 +46,7 @@ export type Database = {
           body?: string
           category?: string
           cover_alt?: string
+          cover_path?: string | null
           cover_url?: string | null
           created_at?: string
           description?: string
@@ -59,6 +61,7 @@ export type Database = {
           body?: string
           category?: string
           cover_alt?: string
+          cover_path?: string | null
           cover_url?: string | null
           created_at?: string
           description?: string

@@ -8,6 +8,13 @@
       "when": 1793923840102,
       "tag": "0000_admin_roles_and_articles",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793923870079,
+      "tag": "0001_article_cover_path",
+      "breakpoints": true
     }
   ]
 }
