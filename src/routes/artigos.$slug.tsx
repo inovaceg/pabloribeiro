@@ -23,7 +23,7 @@ export const Route = createFileRoute("/artigos/$slug")({
     const base = pageHead({ title: `${article.title} | Pablo Ribeiro, Psicólogo`, description: article.description, path });
     return {
       ...base,
-      meta: base.meta.map((m) => (m.property === "og:type" ? { property: "og:type", content: "article" } : m)),
+      meta: base.meta.map((m) => (m["property"] === "og:type" ? { property: "og:type", content: "article" } : m)),
       scripts: [
         {
           type: "application/ld+json",
